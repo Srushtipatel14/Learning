@@ -1,13 +1,23 @@
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("val2").addEventListener("click", function () {
-        console.log("grand parent")
-    },false)
+//call apply bind method
 
-    document.getElementById("val1").addEventListener("click", function () {
-        console.log("parent")
-    },true)
+const details={
+    fname:"srushti",
+    lname:"patel"
+}
 
-    document.getElementById("val0").addEventListener("click", function () {
-        console.log("child")
-    },false)
-})
+function valprint(v1,v2,v3){
+    console.log(this.fname,this.lname,v1,v2,v3)
+}
+
+//call method invokes immediately, takes arguments as comma seperated values
+valprint.call(details,"v1","v2","v3")
+
+
+//apply method invokes immediately, takes arguments as array or array like objects
+
+valprint.apply(details,["v1","v2","v3"])
+
+// in bind menthod return a function and call it whenever need , takes arguments like call method
+
+const bindmethod=valprint.bind(details,"v1","v2","v3")
+bindmethod()
