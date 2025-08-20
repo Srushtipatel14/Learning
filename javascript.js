@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("list_2").addEventListener("click", function () {
         console.log("grandparent")
-    },true)
+    },false)
 
     document.getElementById("list_1").addEventListener("click", function () {
         console.log("parent")
@@ -11,3 +11,5 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("child")
     },false)
 })
+
+//by default event bubbling happen from bottom to top
