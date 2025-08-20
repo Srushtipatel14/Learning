@@ -1,19 +1,14 @@
-function throttle(callback, time) {
-    let last = 0;
-    return function (...args) {
-        const now = Date.now();
-        if (now - last >= time) {
-            callback(...args)
-            last = now;
+function val(a){
+    return function(b){
+        if(b===undefined){
+            return console.log(a)
+        }
+        else{
+            return val(a*b)
         }
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const getdata = throttle(function (val) {
-        console.log(val)
-    }, 300)
-    document.getElementById("val").addEventListener("input", function (e) {
-        getdata(e.target.value)
-    })
-})
+val(1)(2)(3)(4)()
+
+val(2)(6)(3)(4)(1)()
