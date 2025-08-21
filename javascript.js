@@ -1,15 +1,26 @@
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("list_2").addEventListener("click", function () {
-        console.log("grandparent")
-    },false)
+const details={
+    fname:"srushti",
+    lname:"patel",
+    address:{
+        village:"kansa",
+        taluka:"visnagar",
+        district:"mahesana"
+    },
+    val:[1,2,3]
+}
 
-    document.getElementById("list_1").addEventListener("click", function () {
-        console.log("parent")
-    },false)
+function convertObject(details,prefix="val"){
+    let result={};
+    for(let key in details){
+        const newkey=`${prefix}_${key}`;
+        if(typeof details[key]==="object" && !Array.isArray(details[key])&& details[key]!==null){
+            Object.assign(result,convertObject(details[key],newkey))
+        }
+        else{
+            result[newkey]=details[key]
+        }
+    }
+    return result
+}
 
-    document.getElementById("list_0").addEventListener("click", function () {
-        console.log("child")
-    },false)
-})
-
-//by default event bubbling happen from bottom to top
+console.log(convertObject(details))
