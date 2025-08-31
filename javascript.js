@@ -46,9 +46,17 @@ function paymentSuccess(orders) {
     })
 }
 
-userlogin("srushti")
-.then((username)=>fetchUserDetails(username))
-.then((user)=>fetchuserorders(user))
-.then((orders)=>paymentSuccess(orders))
-.then((msg)=>console.log(msg))
-.catch((err)=>console.log(err))
+async function functioncall(){
+    try {
+        const username=await userlogin("srushti");
+        const user=await fetchUserDetails(username)
+        console.log(user)
+        const orders=await fetchuserorders(user)
+        const msg=await paymentSuccess(orders)
+        console.log(msg)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+functioncall()
