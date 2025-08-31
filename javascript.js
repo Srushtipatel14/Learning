@@ -10,48 +10,56 @@
 */
 
 
-function userlogin(username,callback){
+function userlogin(username, callback) {
     console.log(`user logged in with username ${username}`);
-    setTimeout(()=>{
+    setTimeout(() => {
         callback(username)
-    },1000)
+    }, 1000)
 }
 
-function fetchUserDetails(username,callback){
+function fetchUserDetails(username, callback) {
     console.log(`fetching user details for username ${username}`);
-    setTimeout(()=>{
-        callback({user:username,email:`${username}@gmail.com`})
-    },1000)
+    setTimeout(() => {
+        callback({ user: username, email: `${username}@gmail.com` })
+    }, 1000)
 }
 
-function fetchuserorders(username,callback){
+function fetchuserorders(username, callback) {
     console.log(`fetching orders for user ${username.user}`);
-    setTimeout(()=>{
-        callback(["order1","order2","order3"])
-    },1000)
+    setTimeout(() => {
+        callback(["order1", "order2", "order3"])
+    }, 1000)
 }
 
-function paymentSuccess(orders,callback){
+function paymentSuccess(orders, callback) {
     console.log(`user orders ${orders}`)
-    setTimeout(()=>{
+    setTimeout(() => {
         callback("payment successfully done !!")
-    },1000)
+    }, 1000)
 }
 
-function handlepayment(msg){
-    console.log(msg)
-}
+// function handlepayment(msg){
+//     console.log(msg)
+// }
 
-function handleorders(orders){
-    paymentSuccess(orders,handlepayment)
-}
+// function handleorders(orders){
+//     paymentSuccess(orders,handlepayment)
+// }
 
-function handleuser(username){
-    fetchuserorders(username,handleorders)
-}
+// function handleuser(username){
+//     fetchuserorders(username,handleorders)
+// }
 
-function handlelogin(username){
-    fetchUserDetails(username,handleuser)
-}
+// function handlelogin(username){
+//     fetchUserDetails(username,handleuser)
+// }
 
-userlogin("srushti",handlelogin)
+userlogin("srushti", function (username) {
+    fetchUserDetails(username, function (user) {
+        fetchuserorders(user, function (orders) {
+            paymentSuccess(orders, function (msg) {
+                console.log(msg)
+            })
+        })
+    })
+})
