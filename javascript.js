@@ -1,26 +1,57 @@
-const details={
-    fname:"srushti",
-    lname:"patel",
-    address:{
-        village:"kansa",
-        taluka:"visnagar",
-        district:"mahesana"
-    },
-    val:[1,2,3]
+//call back example
+
+
+/*
+1.user login
+2.fetch user details
+3.fetch user orders
+4. do payment
+5. payment success
+*/
+
+
+function userlogin(username,callback){
+    console.log(`user logged in with username ${username}`);
+    setTimeout(()=>{
+        callback(username)
+    },1000)
 }
 
-function convertObject(details,prefix="val"){
-    let result={};
-    for(let key in details){
-        const newkey=`${prefix}_${key}`;
-        if(typeof details[key]==="object" && !Array.isArray(details[key])&& details[key]!==null){
-            Object.assign(result,convertObject(details[key],newkey))
-        }
-        else{
-            result[newkey]=details[key]
-        }
-    }
-    return result
+function fetchUserDetails(username,callback){
+    console.log(`fetching user details for username ${username}`);
+    setTimeout(()=>{
+        callback({user:username,email:`${username}@gmail.com`})
+    },1000)
 }
 
-console.log(convertObject(details))
+function fetchuserorders(username,callback){
+    console.log(`fetching orders for user ${username.user}`);
+    setTimeout(()=>{
+        callback(["order1","order2","order3"])
+    },1000)
+}
+
+function paymentSuccess(orders,callback){
+    console.log(`user orders ${orders}`)
+    setTimeout(()=>{
+        callback("payment successfully done !!")
+    },1000)
+}
+
+function handlepayment(msg){
+    console.log(msg)
+}
+
+function handleorders(orders){
+    paymentSuccess(orders,handlepayment)
+}
+
+function handleuser(username){
+    fetchuserorders(username,handleorders)
+}
+
+function handlelogin(username){
+    fetchUserDetails(username,handleuser)
+}
+
+userlogin("srushti",handlelogin)
