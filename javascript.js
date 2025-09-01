@@ -1,24 +1,7 @@
-// promise allSettled example
-
-const p1 = new Promise((resolve, reject) => {
-    setTimeout(() => {
-        resolve("p1 resolve")
-    })
-})
-
-const p2 = new Promise((resolve, reject) => {
-    setTimeout(() => {
-        resolve("p2 resolve")
-    })
-})
-
-const p3 = new Promise((resolve, reject) => {
-    setTimeout(() => {
-        resolve("p3 resolve")
-    })
-})
-
-const result = Promise.allSettled([p1, p2, p3])
-result
-    .then((msg) => console.log(msg))
-    .catch((err) => console.log(err))
+const heading = React.createElement(
+    "div", 
+    {id:"parent"},
+    React.createElement("div",{id:"child1"},"child1"),
+    React.createElement("div",{id:"child2"},"child2"))
+const root = ReactDOM.createRoot(document.getElementById("root"))
+root.render(heading)
