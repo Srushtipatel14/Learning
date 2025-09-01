@@ -1,62 +1,24 @@
-//promises example
+// promise all example
 
-
-/*
-1.user login
-2.fetch user details
-3.fetch user orders
-4. do payment
-5. payment success
-*/
-
-
-function userlogin(username) {
-    return new Promise((resolve, reject)=>{
-        console.log(`user logged in with username ${username}`);
-        setTimeout(() => {
-            resolve(username)
-        }, 1000)
+const p1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("p1 resolve")
     })
-}
+})
 
-function fetchUserDetails(username) {
-    return new Promise((resolve, reject)=>{
-        console.log(`fetching user details for username ${username}`);
-        setTimeout(() => {
-            resolve({ user: username, email: `${username}@gmail.com` })
-        }, 1000)
+const p2 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("p2 resolve")
     })
-}
+})
 
-function fetchuserorders(username) {
-    return new Promise((resolve, reject)=>{
-        console.log(`fetching orders for user ${username.user}`);
-        setTimeout(() => {
-            resolve(["order1", "order2", "order3"])
-        }, 1000)
+const p3 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("p3 resolve")
     })
-}
+})
 
-function paymentSuccess(orders) {
-    return new Promise((resolve, reject)=>{
-        console.log(`user orders ${orders}`)
-        setTimeout(() => {
-            resolve("payment successfully done !!")
-        }, 1000)
-    })
-}
-
-async function functioncall(){
-    try {
-        const username=await userlogin("srushti");
-        const user=await fetchUserDetails(username)
-        console.log(user)
-        const orders=await fetchuserorders(user)
-        const msg=await paymentSuccess(orders)
-        console.log(msg)
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-functioncall()
+const result = Promise.all([p1, p2, p3])
+result
+    .then((msg) => console.log(msg))
+    .catch((err) => console.log(err))
