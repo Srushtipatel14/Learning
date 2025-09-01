@@ -1,4 +1,4 @@
-// promise any example
+// promise allSettled example
 
 const p1 = new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -18,7 +18,7 @@ const p3 = new Promise((resolve, reject) => {
     })
 })
 
-const result = Promise.any([p1, p2, p3])
+const result = Promise.allSettled([p1, p2, p3])
 result
     .then((msg) => console.log(msg))
     .catch((err) => console.log(err))
