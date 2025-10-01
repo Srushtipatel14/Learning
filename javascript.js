@@ -1,59 +1,27 @@
-//write promises using asyc await with example
+const p1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("p1 success")
+    }, 1000)
+})
 
-/*
-step:1 user login
-step:2 fetch user details
-step:3 ftech user order
-step:4 placed order
-step:5 payment successfully done for orders
-*/
+const p2 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("p2 success")
+    }, 2000)
+})
 
-function userLogin(username) {
-    console.log(`Logged user is ${username}`)
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve({ user: username, email: `${username}@gmail.com` })
-        }, 1000)
-    })
-}
+const p3 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("p3 success")
+    }, 3000)
+})
 
-function fetchuserdetails(username) {
-    console.log(`fetch user details : ${JSON.stringify(username)}`);
-     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(["o1", "o2", "o3"])
-        }, 1000)
-    })
-}
+const p4 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("p4 success")
+    }, 4000)
+})
 
-function fetchuserOrdes(orders) {
-    console.log(`fetch user orders ${orders}`);
-     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(`make payment for ${orders.length} orders`)
-        }, 1000)
-    })
-}
-
-function doPayment(data) {
-    console.log(data)
-     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve("Payment successfully done !!")
-        }, 1000)
-    })
-}
-
-async function funtionExecute(){
-    try {
-        const userdata=await userLogin("srushti");
-        const orders=await fetchuserdetails(userdata);
-        const payment=await fetchuserOrdes(orders)
-        const msg=await doPayment(payment)
-        console.log(msg)
-    } catch (error) {
-        console.log(`Error is ${error}`)
-    }
-}
-
-funtionExecute()
+const p = Promise.all([p1, p2, p3, p4])
+p.then((ans) => console.log(ans))
+.catch((err) => console.log("error is", err))
