@@ -1,4 +1,4 @@
-//write callback function using example
+//write another method for callback function using example
 
 /*
 step:1 user login
@@ -36,20 +36,12 @@ function doPayment(data, callback) {
     }, 1000)
 }
 
-function handlePayment(msg){
-    console.log(msg)
-}
-
-function handleUserOrders(payment){
-    doPayment(payment,handlePayment)
-}
-
-function handleUserDetails(orders){
-    fetchuserOrdes(orders,handleUserOrders)
-}
-
-function handleLogin(username){
-    fetchuserdetails(username,handleUserDetails)
-}
-
-userLogin("srushti",handleLogin)
+userLogin("srushti", function (userdata) {
+    fetchuserdetails(userdata, function (orders) {
+        fetchuserOrdes(orders, function (payment) {
+            doPayment(payment, function (msg) {
+                console.log(msg)
+            })
+        })
+    })
+})
