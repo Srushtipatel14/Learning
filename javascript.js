@@ -22,6 +22,6 @@ const p4 = new Promise((resolve, reject) => {
     }, 4000)
 })
 
-const p = Promise.all([p1, p2, p3, p4])
+const p = Promise.allSettled([p1, p2, p3, p4])
 p.then((ans) => console.log(ans))
 .catch((err) => console.log("error is", err))
