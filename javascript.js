@@ -1,4 +1,4 @@
-//write promises using example
+//write promises using asyc await with example
 
 /*
 step:1 user login
@@ -44,9 +44,16 @@ function doPayment(data) {
     })
 }
 
-userLogin("srushti")
-.then((userdata)=>fetchuserdetails(userdata))
-.then((orders)=>fetchuserOrdes(orders))
-.then((payment)=>doPayment(payment))
-.then((msg)=>console.log(msg))
-.catch((error)=>console.log(`Error is ${error}`))
+async function funtionExecute(){
+    try {
+        const userdata=await userLogin("srushti");
+        const orders=await fetchuserdetails(userdata);
+        const payment=await fetchuserOrdes(orders)
+        const msg=await doPayment(payment)
+        console.log(msg)
+    } catch (error) {
+        console.log(`Error is ${error}`)
+    }
+}
+
+funtionExecute()
