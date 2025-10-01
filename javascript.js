@@ -1,4 +1,4 @@
-//write another method for callback function using example
+//write promises using example
 
 /*
 step:1 user login
@@ -8,40 +8,45 @@ step:4 placed order
 step:5 payment successfully done for orders
 */
 
-function userLogin(username, callback) {
+function userLogin(username) {
     console.log(`Logged user is ${username}`)
-    return setTimeout(() => {
-        callback({ user: username, email: `${username}@gmail.com` })
-    }, 1000)
-}
-
-function fetchuserdetails(username, callback) {
-    console.log(`fetch user details : ${JSON.stringify(username)}`);
-    return setTimeout(() => {
-        callback(["o1", "o2", "o3"])
-    }, 1000)
-}
-
-function fetchuserOrdes(orders, callback) {
-    console.log(`fetch user orders ${orders}`);
-    return setTimeout(() => {
-        callback(`make payment for ${orders.length} orders`);
-    }, 1000)
-}
-
-function doPayment(data, callback) {
-    console.log(data)
-    return setTimeout(() => {
-        callback("Payment successfully done !!")
-    }, 1000)
-}
-
-userLogin("srushti", function (userdata) {
-    fetchuserdetails(userdata, function (orders) {
-        fetchuserOrdes(orders, function (payment) {
-            doPayment(payment, function (msg) {
-                console.log(msg)
-            })
-        })
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({ user: username, email: `${username}@gmail.com` })
+        }, 1000)
     })
-})
+}
+
+function fetchuserdetails(username) {
+    console.log(`fetch user details : ${JSON.stringify(username)}`);
+     return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(["o1", "o2", "o3"])
+        }, 1000)
+    })
+}
+
+function fetchuserOrdes(orders) {
+    console.log(`fetch user orders ${orders}`);
+     return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(`make payment for ${orders.length} orders`)
+        }, 1000)
+    })
+}
+
+function doPayment(data) {
+    console.log(data)
+     return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("Payment successfully done !!")
+        }, 1000)
+    })
+}
+
+userLogin("srushti")
+.then((userdata)=>fetchuserdetails(userdata))
+.then((orders)=>fetchuserOrdes(orders))
+.then((payment)=>doPayment(payment))
+.then((msg)=>console.log(msg))
+.catch((error)=>console.log(`Error is ${error}`))
