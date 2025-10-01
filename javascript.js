@@ -1,53 +1,55 @@
-// //removing all zeros from the array without using any iterator method
+//write callback function using example
 
-const { resolve } = require("path");
+/*
+step:1 user login
+step:2 fetch user details
+step:3 ftech user order
+step:4 placed order
+step:5 payment successfully done for orders
+*/
 
-// const a=[1,2,0,3,0,4,0,5,0,6,7,8,0,0,9];
-// let result=[];
+function userLogin(username, callback) {
+    console.log(`Logged user is ${username}`)
+    return setTimeout(() => {
+        callback({ user: username, email: `${username}@gmail.com` })
+    }, 1000)
+}
 
-// function val(arr){
-//     const temp=arr;
-//     if(arr.length===0){
-//         return result;
-//     }
-//     else{
-//         const val1=temp.slice(0,1)
-//         const v=temp.slice(1)
-//         if(val1[0]!==0){
-//             result.push(val1[0]);
-//         }
-//         return val(v)
-//     }
-// }
+function fetchuserdetails(username, callback) {
+    console.log(`fetch user details : ${JSON.stringify(username)}`);
+    return setTimeout(() => {
+        callback(["o1", "o2", "o3"])
+    }, 1000)
+}
 
-// console.log(val(a));
+function fetchuserOrdes(orders, callback) {
+    console.log(`fetch user orders ${orders}`);
+    return setTimeout(() => {
+        callback(`make payment for ${orders.length} orders`);
+    }, 1000)
+}
 
+function doPayment(data, callback) {
+    console.log(data)
+    return setTimeout(() => {
+        callback("Payment successfully done !!")
+    }, 1000)
+}
 
-// const a=[1,2,3]
-// const b=a;
-// b.push(4)
-// console.log(a)
+function handlePayment(msg){
+    console.log(msg)
+}
 
-const p1=new Promise((resolve,reject)=>{
-    setTimeout(()=>{
-        resolve("p1 resolve")
-    },1000)
-})
+function handleUserOrders(payment){
+    doPayment(payment,handlePayment)
+}
 
-const p2=new Promise((resolve,reject)=>{
-    setTimeout(()=>{
-        resolve("p2 resolve")
-    },3000)
-})
+function handleUserDetails(orders){
+    fetchuserOrdes(orders,handleUserOrders)
+}
 
-const p3=new Promise((resolve,reject)=>{
-    setTimeout(()=>{
-        resolve("p3 resolve")
-    },5000)
-})
+function handleLogin(username){
+    fetchuserdetails(username,handleUserDetails)
+}
 
-const p=[p1,p2,p3];
-
-Promise.any(p)
-.then((msg)=>console.log(msg))
-.catch((err)=>console.log(err))
+userLogin("srushti",handleLogin)
