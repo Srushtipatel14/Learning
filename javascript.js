@@ -7,4 +7,5 @@ function detailsShow(v1,v2,v3){
     return console.log(this.fname,this.lname,v1,v2,v3)
 }
 
-detailsShow.apply(details,["a","b","c"])
+const val=detailsShow.bind(details,"a","b","c")
+val()
