@@ -1,7 +1,12 @@
-function val(a){
-    return function(b){
-        console.log(a*b)
+function recursion(a) {
+    return function (b) {
+        if (b === undefined) {
+            return console.log(a)
+        }
+        else {
+            return recursion(a * b)
+        }
     }
 }
 
-val(7)(8)
+recursion(1)(2)(3)(5)(6)()
