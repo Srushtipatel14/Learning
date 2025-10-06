@@ -1,7 +1,18 @@
+function throttling(callback,time){
+    let timer;
+    return function(...args){
+        clearTimeout(timer)
+        timer=setTimeout(()=>{
+            callback(...args)
+        },time)
+    }
+}
+
 document.addEventListener("DOMContentLoaded",function(){
-    document.getElementById("container").addEventListener("click",function(e){
-        if(e.target.tagName==="LI"){
-            console.log(e.target.innerHTML)
-        }
+    const functionCall=throttling((data)=>{
+        console.log(data)
+    },200)
+    document.getElementById("container").addEventListener("input",function(e){
+        functionCall(e.target.value)
     })
 })
