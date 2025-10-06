@@ -1,19 +1,18 @@
-function throttling(callback, time) {
-    let last = 0;
-    return function (...args) {
-        const now = Date.now()
-        if (now - last >= time) {
+function debouncing(callback,time){
+    let timer;
+    return function(...args){
+        clearTimeout(timer)
+        timer=setTimeout(()=>{
             callback(...args)
-            last = now;
-        }
+        },time)
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const functionCall = throttling((data) => {
+document.addEventListener("DOMContentLoaded",function(){
+    const functionCall=debouncing((data)=>{
         console.log(data)
-    }, 1000)
-    document.getElementById("container").addEventListener("input", function (e) {
+    },500)
+    document.getElementById("container").addEventListener("input",function(e){
         functionCall(e.target.value)
     })
 })
