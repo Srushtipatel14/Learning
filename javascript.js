@@ -4,8 +4,10 @@ const details = {
     address: {
         village: "kansa",
         taluka: "visnagar",
-        district: "mahesana"
-    }
+        district: "mahesana",
+        suborders:["o1","o2","o3"]
+    },
+    orders:["o1","o2","o3"]
 }
 
 function convertObject(obj, prefix = "details") {
