@@ -26,4 +26,6 @@ function convertObject(obj, prefix = "details") {
     return result;
 }
 
+
+
 console.log(convertObject(details))
