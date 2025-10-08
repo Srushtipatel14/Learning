@@ -25,15 +25,4 @@ function convertObject(obj, prefix = "details") {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 console.log(convertObject(details))
