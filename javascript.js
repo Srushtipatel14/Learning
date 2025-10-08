@@ -1,3 +1,5 @@
+// convert object into single object with key prefix name
+
 const details = {
     fname: "srushti",
     lname: "patel",
