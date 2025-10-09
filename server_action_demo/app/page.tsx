@@ -7,6 +7,13 @@ export default function Home() {
         <input type="text" name="email" className="border p-2" required  />
         <button type="submit" className="border p-2">Create</button>
       </form>
+
+        <form action={actions.updateUser} className=" d-flex gap-2" >
+        <input type="text" name="name" className="border p-2" required />
+        <input type="text" name="id" className="border p-2" required  />
+        <button type="submit" className="border p-2">Update</button>
+      </form>
+
     </div>
   );
 }
