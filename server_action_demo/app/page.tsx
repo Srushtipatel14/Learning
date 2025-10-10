@@ -24,6 +24,10 @@ export default function Home() {
         <button type="submit" className="border p-2">Delete</button>
       </form>
 
+       <form action={actions.getSelectionUser}>
+        <button type="submit" className="border p-2">Delete</button>
+      </form>
+
     </div>
   );
 }

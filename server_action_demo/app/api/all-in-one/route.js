@@ -21,5 +21,11 @@ export const actions = {
         await connectDB();
         const id=formdata.get("id")
         await User.findByIdAndDelete(id)
+    },
+     async getSelectionUser(formdata) {
+        "use server";
+        await connectDB();
+        const val= await User.find()
+        console.log(val);
     }
 }
