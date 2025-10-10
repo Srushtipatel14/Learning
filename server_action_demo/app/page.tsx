@@ -15,6 +15,11 @@ export default function Home() {
         <button type="submit" className="border p-2">Update</button>
       </form>
 
+        <form action={actions.deleteUser}>
+        <input type="text" name="id" className="border p-2" />
+        <button type="submit" className="border p-2">Delete</button>
+      </form>
+
     </div>
   );
 }

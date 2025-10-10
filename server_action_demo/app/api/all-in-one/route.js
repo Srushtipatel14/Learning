@@ -15,5 +15,11 @@ export const actions = {
         const name=formdata.get("name")
         const id=formdata.get("id")
         await User.findByIdAndUpdate(id,{name})
+    },
+     async deleteUser(formdata) {
+        "use server";
+        await connectDB();
+        const id=formdata.get("id")
+        await User.findByIdAndDelete(id)
     }
 }
