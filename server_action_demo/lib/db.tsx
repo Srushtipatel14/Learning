@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 let isConnect=false;
 const url=process.env.MONGO_URL
-export  async function connectionDB(){
+export default  async function connectDB(){
     if(isConnect){
         return
     }

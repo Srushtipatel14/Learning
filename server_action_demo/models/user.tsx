@@ -5,4 +5,4 @@ const UserSchema=new mongoose.Schema({
     email:String
 });
 
-export default mongoose.models.users || mongoose.model("user",UserSchema)
+export default mongoose.models.user || mongoose.model("user",UserSchema)
