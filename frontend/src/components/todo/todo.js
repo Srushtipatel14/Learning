@@ -13,17 +13,17 @@ const TODO = () => {
         }))
     }
 
-    // useEffect(() => {
-    //     const fetchdetails = async () => {
-    //         try {
-    //             const tododata = localStorage.getItem("todo");
-    //             setTodoList(JSON.parse(tododata))
-    //         } catch (error) {
-    //             console.log(error)
-    //         }
-    //     }
-    //     fetchdetails()
-    // }, []);
+    useEffect(() => {
+        const fetchdetails = async () => {
+            try {
+                const tododata = localStorage.getItem("todo");
+                setTodoList(JSON.parse(tododata))
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchdetails()
+    }, []);
 
     const addtodoitem = async () => {
         try {
