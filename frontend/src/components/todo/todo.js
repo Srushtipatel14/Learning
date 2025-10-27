@@ -48,16 +48,16 @@ const TODO = () => {
         }
     }
 
-    // const removeTodoListItem = async (id) => {
-    //     try {
-    //         const existingTodos = JSON.parse(localStorage.getItem("todo")) || [];
-    //         const updateTodo = existingTodos.filter((item) => item.id !== id);
-    //         localStorage.setItem("todo", JSON.stringify(updateTodo));
-    //         setTodoList(updateTodo)
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+    const removeTodoListItem = async (id) => {
+        try {
+            const existingTodos = JSON.parse(localStorage.getItem("todo")) || [];
+            const updateTodo = existingTodos.filter((item) => item.id !== id);
+            localStorage.setItem("todo", JSON.stringify(updateTodo));
+            setTodoList(updateTodo)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
     return (
