@@ -25,28 +25,34 @@ const TODO = () => {
         fetchdetails()
     }, []);
 
-    const addtodoitem = async () => {
-        try {
+ const addtodoitem = async () => {
+  try {
+    const existingTodos = JSON.parse(localStorage.getItem("todo")) || [];
 
-            const existingTodos = JSON.parse(localStorage.getItem("todo")) || [];
-            if (formdata.id) {
-                const editTodo = existingTodos.map((item) => 
-                    item.id === formdata.id ? { ...item, ...formdata } : item
-                )
-                setTodoList(editTodo)
-                localStorage.setItem("todo", JSON.stringify(editTodo));
-            }
-            else {
-                formdata.id = crypto.randomUUID();
-                const updatedTodos = [...existingTodos, formdata];
-                setTodoList(updatedTodos)
-                localStorage.setItem("todo", JSON.stringify(updatedTodos));
-            }
-            setFormdata({})
-        } catch (error) {
-            console.log(error);
-        }
+    let updatedTodos;
+
+    if (formdata.id) {
+      // ✏️ Edit existing todo
+      updatedTodos = existingTodos.map((item) =>
+        item.id === formdata.id ? { ...item, ...formdata } : item
+      );
+    } else {
+      // ➕ Add new todo
+      const newTodo = { ...formdata, id: crypto.randomUUID() };
+      updatedTodos = [...existingTodos, newTodo];
     }
+
+    // Update state + localStorage
+    setTodoList(updatedTodos);
+    localStorage.setItem("todo", JSON.stringify(updatedTodos));
+
+    // Clear form
+    setFormdata({});
+  } catch (error) {
+    console.error("Error adding/editing todo:", error);
+  }
+};
+
 
     const removeTodoListItem = async (id) => {
         try {
