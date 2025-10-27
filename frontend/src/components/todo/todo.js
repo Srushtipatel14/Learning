@@ -32,21 +32,15 @@ const TODO = () => {
     let updatedTodos;
 
     if (formdata.id) {
-      // ✏️ Edit existing todo
       updatedTodos = existingTodos.map((item) =>
         item.id === formdata.id ? { ...item, ...formdata } : item
       );
     } else {
-      // ➕ Add new todo
       const newTodo = { ...formdata, id: crypto.randomUUID() };
       updatedTodos = [...existingTodos, newTodo];
     }
-
-    // Update state + localStorage
     setTodoList(updatedTodos);
     localStorage.setItem("todo", JSON.stringify(updatedTodos));
-
-    // Clear form
     setFormdata({});
   } catch (error) {
     console.error("Error adding/editing todo:", error);
