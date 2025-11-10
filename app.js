@@ -1,54 +1,44 @@
 // 1. user login
 // 2. fetch user details
 // 3. fetch user orders
-// 4. make payement 
+// 4. make payement
 // 5. payment successfully done
 
-
-function userLogin(username, callback) {
-    console.log(`user try to login with name : ${username}`);
-    setTimeout(() => {
-        callback({ uname: username, email: `${username}@gmail.come` })
-    }, 1000)
+function userLogin(username) {
+    return new Promise((resolve) => {
+        console.log(`user try to login with name : ${username}`);
+        setTimeout(() => {
+            resolve({ uname: username, email: `${username}@gmail.come` });
+        }, 1000);
+    });
 }
 
-function fetchuserdetails(details, callback) {
-    console.log(`user login successfully with name : ${details.uname} and email : ${details.email}`);
-    setTimeout(() => {
-        callback(["order 1", "order 2", "oeder 3"])
-    }, 1000)
+function fetchuserdetails(details) {
+    return new Promise((resolve) => {
+        console.log(
+            `user login successfully with name : ${details.uname} and email : ${details.email}`
+        );
+        setTimeout(() => {
+            resolve(["order 1", "order 2", "oeder 3"]);
+        }, 1000);
+    });
 }
 
-
-function fetchuserOrders(orders, callback) {
-    console.log(`fetch user Orders : ${orders}`);
-    setTimeout(() => {
-        callback(`payment successfully done`)
-    }, 1000)
+function fetchuserOrders(orders, resolve) {
+    return new Promise((resolve) => {
+        console.log(`fetch user Orders : ${orders}`);
+        setTimeout(() => {
+            resolve(`payment successfully done`);
+        }, 1000);
+    });
 }
-
 
 function paymentSuccess(msg) {
     console.log(msg);
 }
 
-function handlePayment(msg) {
-
-}
-
-function handleUserDetails(orders) {
-
-}
-
-function handleLogin(details) {
-
-}
-
-userLogin("Srushti", function (details) {
-    fetchuserdetails(details, function (orders) {
-        fetchuserOrders(orders, function (msg) {
-            paymentSuccess(msg)
-        })
-    })
-})
-
+userLogin("Srushti")
+    .then((details) => fetchuserdetails(details))
+    .then((orders) => fetchuserOrders(orders))
+    .then((msg) => paymentSuccess(msg))
+    .catch((err) => console.log(err));
