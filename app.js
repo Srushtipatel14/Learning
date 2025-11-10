@@ -24,7 +24,7 @@ function fetchuserdetails(details) {
     });
 }
 
-function fetchuserOrders(orders, resolve) {
+function fetchuserOrders(orders) {
     return new Promise((resolve) => {
         console.log(`fetch user Orders : ${orders}`);
         setTimeout(() => {
@@ -37,8 +37,16 @@ function paymentSuccess(msg) {
     console.log(msg);
 }
 
-userLogin("Srushti")
-    .then((details) => fetchuserdetails(details))
-    .then((orders) => fetchuserOrders(orders))
-    .then((msg) => paymentSuccess(msg))
-    .catch((err) => console.log(err));
+async function fetchdetails(){
+    try {
+        const details=await userLogin("srushti")
+        const orders=await fetchuserdetails(details);
+        const msg=await fetchuserOrders(orders)
+        await paymentSuccess(msg)
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+fetchdetails()
