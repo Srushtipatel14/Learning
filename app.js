@@ -5,44 +5,50 @@
 // 5. payment successfully done
 
 
-function userLogin(username,callback){
+function userLogin(username, callback) {
     console.log(`user try to login with name : ${username}`);
-    setTimeout(()=>{
-        callback({uname:username,email:`${username}@gmail.come`})
-    },1000)
+    setTimeout(() => {
+        callback({ uname: username, email: `${username}@gmail.come` })
+    }, 1000)
 }
 
-function fetchuserdetails(details,callback){
+function fetchuserdetails(details, callback) {
     console.log(`user login successfully with name : ${details.uname} and email : ${details.email}`);
-    setTimeout(()=>{
-        callback(["order 1","order 2","oeder 3"])
-    },1000)
+    setTimeout(() => {
+        callback(["order 1", "order 2", "oeder 3"])
+    }, 1000)
 }
 
 
-function fetchuserOrders(orders,callback){
+function fetchuserOrders(orders, callback) {
     console.log(`fetch user Orders : ${orders}`);
-    setTimeout(()=>{
+    setTimeout(() => {
         callback(`payment successfully done`)
-    },1000)
+    }, 1000)
 }
 
 
-function paymentSuccess(msg){
+function paymentSuccess(msg) {
     console.log(msg);
 }
 
-function handlePayment(msg){
-    paymentSuccess(msg)
+function handlePayment(msg) {
+
 }
 
-function handleUserDetails(orders){
-    fetchuserOrders(orders,handlePayment)
+function handleUserDetails(orders) {
+
 }
 
-function handleLogin(details){
-    fetchuserdetails(details,handleUserDetails)
+function handleLogin(details) {
+
 }
 
-userLogin("Srushti",handleLogin)
+userLogin("Srushti", function (details) {
+    fetchuserdetails(details, function (orders) {
+        fetchuserOrders(orders, function (msg) {
+            paymentSuccess(msg)
+        })
+    })
+})
 
