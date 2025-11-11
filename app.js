@@ -1,57 +1,23 @@
-// 1. user login
-// 2. fetch user details
-// 3. fetch user orders
-// 4. make payement
-// 5. payment successfully done
-
-function userLogin(username) {
-    return new Promise((resolve) => {
-        console.log(`user try to login with name : ${username}`);
-        setTimeout(() => {
-            resolve({ uname: username, email: `${username}@gmail.come` });
-        }, 1000);
-    });
+const details={
+    fname:"srushti",
+    lname:"patel"
 }
 
-function fetchuserdetails(details) {
-    return new Promise((resolve) => {
-        console.log(
-            `user login successfully with name : ${details.uname} and email : ${details.email}`
-        );
-        setTimeout(() => {
-            resolve(["order 1", "order 2", "oeder 3"]);
-        }, 1000);
-    });
+function valprint(v1,v2,v3){
+    return console.log(this.fname,this.lname,v1,v2,v3)
 }
 
-function fetchuserOrders(orders) {
-    return new Promise((resolve) => {
-        console.log(`fetch user Orders : ${orders}`);
-        setTimeout(() => {
-            resolve(`payment successfully done`);
-        }, 1000);
-    });
-}
+valprint.call(details,"a","b","c")
+valprint.apply(details,["a","b","c"]);
+const ret=valprint.bind(details,"a","b","c")
+ret()
 
-function paymentSuccess(msg) {
-    return new Promise((resolve)=>{
-        setTimeout(()=>{
-            resolve(msg)
-        })
-    },1000)
-}
-
-async function fetchdetails(){
-    try {
-        const details=await userLogin("srushti")
-        const orders=await fetchuserdetails(details);
-        const msg=await fetchuserOrders(orders)
-        const res=await paymentSuccess(msg)
-        console.log(res)
-        
-    } catch (error) {
-        console.log(error)
+Function.prototype.mybind=function(...args){
+    obj=this;
+    params=args.slice(1)
+    return function(...arg){
+        obj.apply(args[0],[...params,...arg])
     }
 }
-
-fetchdetails()
+const ret1=valprint.mybind(details,"a","b")
+ret1("c")
