@@ -1,23 +1,20 @@
-function debouncing(fn, time) {
-    let timeval = 0;
+function throttling(fn, delay) {
+    let lastCall = 0;
     return function (...args) {
-        clearTimeout(timeval)
-        timeval = setTimeout(() => {
-            fn(...args)
-        }, time)
-        if (timeval >= time) {
-            timeval = time;
+        const now = Date.now();
+        if (now - lastCall >= delay) {
+            lastCall = now;
+            fn(...args);
         }
-    }
+    };
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-
-    const fun = debouncing((val) => {
-        console.log(val)
-    }, 1000)
+    const fun = throttling((val) => {
+        console.log(val);
+    }, 1000);
 
     document.getElementById("val").addEventListener("input", function (e) {
-        fun(e.target.value)
-    })
-})
+        fun(e.target.value);
+    });
+});
