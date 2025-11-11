@@ -34,7 +34,11 @@ function fetchuserOrders(orders) {
 }
 
 function paymentSuccess(msg) {
-    console.log(msg);
+    return new Promise((resolve)=>{
+        setTimeout(()=>{
+            resolve(msg)
+        })
+    },1000)
 }
 
 async function fetchdetails(){
@@ -42,7 +46,8 @@ async function fetchdetails(){
         const details=await userLogin("srushti")
         const orders=await fetchuserdetails(details);
         const msg=await fetchuserOrders(orders)
-        await paymentSuccess(msg)
+        const res=await paymentSuccess(msg)
+        console.log(res)
         
     } catch (error) {
         console.log(error)
