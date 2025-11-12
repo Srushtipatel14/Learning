@@ -1,5 +1,7 @@
-function val(a,b){
-  return console.log(a*b)
+var a=0;
+function val(){
+  return console.log(++a)
 }
 
-val(4,5)
+val()
+val()
