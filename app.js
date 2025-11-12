@@ -1,9 +1,11 @@
-function printval(a,b){
-    return console.log(a*b)
+let a=0;
+function printval(){
+    return console.log(++a)
 }
 
 
-printval(4,5)
+printval()
+printval()
 
-//this is called pure function in which for same input get same output 
-//there is a no side effect for this
+//this is called impure function in which for same input get different output 
+//there is aim side effect for this
