@@ -1,5 +1,5 @@
-let a=0;
-(function printval(){
-    return console.log(++a)
-})();
+function val(a,b){
+  return console.log(a*b)
+}
 
+val(4,5)
