@@ -1,20 +1,9 @@
-function throttling(fn, delay) {
-    let lastCall = 0;
-    return function (...args) {
-        const now = Date.now();
-        if (now - lastCall >= delay) {
-            lastCall = now;
-            fn(...args);
-        }
-    };
+function printval(a,b){
+    return console.log(a*b)
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const fun = throttling((val) => {
-        console.log(val);
-    }, 1000);
 
-    document.getElementById("val").addEventListener("input", function (e) {
-        fun(e.target.value);
-    });
-});
+printval(4,5)
+
+//this is called pure function in which for same input get same output 
+//there is a no side effect for this
