@@ -1,6 +1,6 @@
-const add=(a,b)=>a+b;
-const multiple=(a,b)=>a*b;
+function val(a,b,c){
+  return console.log(a+b+c)
+}
 
-const compose=(f,g)=>(a,b,c)=>f(g(a,b),c);
-const val=compose(add,multiple)(4,5,10)
-console.log(val)
+const res=val.bind(this,5);
+res(10,15)
