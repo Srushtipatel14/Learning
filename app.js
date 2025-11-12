@@ -1,20 +1,22 @@
+const p1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("resolve p1")
+  }, 2000)
+})
 
+const p2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("resolve p2")
+  }, 3000)
+})
 
-const memoize = (val) => {
-  const res = {};
-  return function (...x) {
-    if (res[x]) {
-      console.log("value is get from cache", res[x]);
-      return
-    }
+const p3 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("resolve p3")
+  }, 5000)
+})
 
-    const result =val(...x);
-    res[x] = result;
-    console.log("value is get through calculation", result);
-    return
-  }
-}
-const val=memoize((a,b)=>a*b)
-
-val(4, 5)
-val(4, 5)
+const p = [p1, p2, p3];
+Promise.race(p).then((msg) => {
+  console.log(msg)
+}).catch((err) => console.log(err))
