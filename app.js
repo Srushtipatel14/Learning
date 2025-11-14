@@ -1,25 +1,9 @@
-const radius=[1,2,3,4,5]
+const obj = [
+    { fname: "Srushti", lname: "patel", age: 23 },
+    { fname: "Jil", lname: "patel", age: 23 },
+    { fname: "Nishadh", lname: "patel", age: 17 },
+    { fname: "Dipti", lname: "patel", age: 47 }
+]
 
-function area(radius){
-    return Math.PI*radius*radius;
-}
-
-function diameter(radius){
-    return 2*radius;
-}
-function circumference(radius){
-    return Math.PI*radius*2;
-}
-
-
-Array.prototype.calculate=function(logic){
-    let ans=[];
-    for(let i=0;i<this.length;i++){
-        ans.push(logic(this[i]))
-    }
-    return ans;
-}
-
-
-console.log(radius.calculate(diameter))
-console.log(radius.map(diameter))
+const v1=obj.map((val)=>val.fname+ " "+val.lname)
+console.log(v1)
