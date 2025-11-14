@@ -5,5 +5,14 @@ const obj = [
     { fname: "Dipti", lname: "patel", age: 47 }
 ]
 
-const v1=obj.map((val)=>val.fname+ " "+val.lname)
+const v1=obj.reduce((acc,curr)=>{
+    if(acc[curr.age]){
+       ++acc[curr.age];
+    }
+    else{
+        acc[curr.age]=1;
+    }
+    return acc
+},{})
+
 console.log(v1)
