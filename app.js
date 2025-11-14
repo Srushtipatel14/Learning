@@ -5,5 +5,15 @@ const obj = [
     { fname: "Dipti", lname: "patel", age: 47 }
 ]
 
-const v1=obj.filter((val)=>val.age>17).map((item)=>item.fname+ ' '+item.lname)
+//result : [ 'Srushti patel', 'Jil patel', 'Dipti patel' ]
+// use reduce not map filter
+
+const v1=obj.reduce((acc,curr)=>{
+    if(curr.age>17){
+        acc.push(curr.fname+' '+curr.lname)
+    }
+    return acc;
+},[])
+
+
 console.log(v1)
