@@ -1,22 +1,25 @@
-const p1 = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("resolve p1")
-  }, 2000)
-})
+const radius=[1,2,3,4,5]
 
-const p2 = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("resolve p2")
-  }, 3000)
-})
+function area(radius){
+    return Math.PI*radius*radius;
+}
 
-const p3 = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("resolve p3")
-  }, 5000)
-})
+function diameter(radius){
+    return 2*radius;
+}
+function circumference(radius){
+    return Math.PI*radius*2;
+}
 
-const p = [p1, p2, p3];
-Promise.race(p).then((msg) => {
-  console.log(msg)
-}).catch((err) => console.log(err))
+
+Array.prototype.calculate=function(logic){
+    let ans=[];
+    for(let i=0;i<this.length;i++){
+        ans.push(logic(this[i]))
+    }
+    return ans;
+}
+
+
+console.log(radius.calculate(diameter))
+console.log(radius.map(diameter))
