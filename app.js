@@ -1,22 +1,57 @@
-const p1 = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("resolve p1")
-  }, 2000)
-})
+const processA = () => {
+  return new Promise((resolve) => {
+    console.log("Process A started")
+    setTimeout(() => {
+      console.log("Process A finished")
+      resolve("Process A finished")
+    }, 1000)
+  })
+};
 
-const p2 = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("resolve p2")
-  }, 3000)
-})
+const processB = () => {
+  return new Promise((resolve) => {
+    console.log("Process B started")
+    setTimeout(() => {
+      console.log("Process B finished")
+      resolve("Process B finished")
+    }, 1000)
+  })
+};
 
-const p3 = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("resolve p3")
-  }, 5000)
-})
+const processC = () => {
+  return new Promise((resolve) => {
+    console.log("Process C started")
+    setTimeout(() => {
+      console.log("Process C finished")
+      resolve("Process C finished")
+    }, 1000)
+  })
+};
 
-const p = [p1, p2, p3];
-Promise.race(p).then((msg) => {
-  console.log(msg)
-}).catch((err) => console.log(err))
+const processD = () => {
+  return new Promise((resolve) => {
+    console.log("Process D started")
+    setTimeout(() => {
+      console.log("Process D finished")
+      resolve("Process D finished")
+    }, 1000)
+  })
+};
+
+async function val() {
+  try {
+    const promiseA=processA();
+    const promised=processD();
+    promiseA.then(()=>processB());
+
+    await Promise.all([promiseA,promised])
+    console.log("A nd d done")
+
+    await processC()
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+val()
