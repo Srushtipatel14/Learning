@@ -1,20 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 
 function App() {
 
   const [formData, setFormData] = useState({});
+  const inputref = useRef(0);
 
-  const searchValue =async() => {
+  const searchValue = async () => {
     console.log(formData.val)
   }
 
   useEffect(() => {
-    const debounce = setTimeout(() => {
-      if (formData.val === '' || formData.val === undefined) return;
-      searchValue()
-    }, 500)
-    return () => clearTimeout(debounce)
+    if(!formData.val || formData.val==='') return
+    const now=new Date();
+   if(now-inputref.current>=500){
+    searchValue();
+    inputref.current=now;
+   }
   }, [formData])
 
   const handleChange = (e) => {
@@ -31,4 +33,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; 
