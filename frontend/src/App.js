@@ -6,6 +6,7 @@ function App() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false)
   const [hasMore, setHasMore] = useState(true)
+  const inputref=useRef(null)
 
   useEffect(() => {
     if (hasMore) {
@@ -33,20 +34,39 @@ function App() {
     }
   }
 
-  const handleInfiniteScroll = () => {
-    if (!hasMore || loading) return;
-    const totalHeight = document.documentElement.scrollHeight;
-    const viewHeight = window.innerHeight;
-    const scrollHeight = document.documentElement.scrollTop;
-    if (totalHeight <= viewHeight + scrollHeight + 1) {
-      setPage((prev) => prev + 1)
-    }
-  }
+  // const handleInfiniteScroll = () => {
+  //   if (!hasMore || loading) return;
+  //   const totalHeight = document.documentElement.scrollHeight;
+  //   const viewHeight = window.innerHeight;
+  //   const scrollHeight = document.documentElement.scrollTop;
+  //   if (totalHeight <= viewHeight + scrollHeight + 1) {
+  //     setPage((prev) => prev + 1)
+  //   }
+  // }
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleInfiniteScroll)
-    return () => window.removeEventListener("scroll", handleInfiniteScroll)
-  }, [loading, hasMore])
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleInfiniteScroll)
+  //   return () => window.removeEventListener("scroll", handleInfiniteScroll)
+  // }, [loading, hasMore])
+  
+  useEffect(()=>{
+    const observer=new IntersectionObserver((entry)=>{
+      if(entry[0].isIntersecting && !loading){
+        setPage((prev)=>prev+1);
+      }
+    },{threshold:1})
+    if(inputref.current){
+      observer.observe(inputref.current)
+    }
+
+    return ()=>{
+      if(inputref.current){
+        observer.unobserve(inputref.current)
+      }
+    }
+
+
+  },[loading,hasMore])
 
 
   return (
@@ -56,11 +76,13 @@ function App() {
           <div key={item.id} style={{ padding: "20px", border: "1px solid black" }}>{item.title}</div>
         ))}
       </div>
-      {loading && (
-        <div style={{ height: "40px", padding: "20px", background: "grey" }}>
-          <p>loading...</p>
-        </div>
-      )}
+       <div
+        ref={inputref}
+        style={{ height: "50px", textAlign: "center" }}
+      >
+        {loading && <p>Loading...</p>}
+      </div>
+
 
       {!hasMore && <p style={{ textAlign: "center" }}>No more data</p>}
     </div>
