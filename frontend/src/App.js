@@ -1,18 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+//https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}
 
 function App() {
-  const [val, setVal] = useState("")
+  const [val, setVal] = useState("");
+  const inputRef=useRef(0)
 
   function fetchData(){
     console.log(val)
   }
 
   useEffect(()=>{
-    const timer=setTimeout(()=>{
-      if(!val || val==='' ) return;
-      fetchData()
-    },500)
-    return ()=>clearTimeout(timer);
+    if(val){
+      const now=new Date();
+      if(now-inputRef.current>=500){
+        fetchData();
+        inputRef.current=now;
+      }
+    }
   },[val])
 
 
