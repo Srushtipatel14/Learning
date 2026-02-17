@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-//https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}
 
 function App() {
   const [val, setVal] = useState("");
