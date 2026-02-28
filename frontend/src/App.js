@@ -2,22 +2,31 @@ import { useEffect, useRef, useState } from "react";
 //https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}
 
 function App() {
+  const [page, setPage] = useState(1);
   const [items, setItems] = useState([]);
-  const [page, setPage] = useState(1)
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  const inputRef = useRef(null);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false)
+  const [hasMore, setHasMore] = useState(true)
+  const inputref=useRef(null)
 
-  const fetchDetails = async () => {
+  useEffect(() => {
+    if (hasMore) {
+      fetchData()
+    }
+  }, [page]);
+
+  const fetchData = async () => {
+
+    setLoading(true)
     try {
-      setLoading(true);
-      const resData = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}`);
-      const data = await resData.json();
+      const resdata = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}`);
+      const data = await resdata.json();
       if (data.length === 0) {
-        setHasMore(false);
+        setHasMore(false)
         return;
       }
-      setItems((prev) => [...prev, ...data]);
+      setItems((prev) => [...prev, ...data])
+
     } catch (error) {
       console.log(error)
     }
@@ -26,47 +35,57 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    if (hasMore) {
-      fetchDetails();
+  // const handleInfiniteScroll = () => {
+  //   if (!hasMore || loading) return;
+  //   const totalHeight = document.documentElement.scrollHeight;
+  //   const viewHeight = window.innerHeight;
+  //   const scrollHeight = document.documentElement.scrollTop;
+  //   if (totalHeight <= viewHeight + scrollHeight + 1) {
+  //     setPage((prev) => prev + 1)
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleInfiniteScroll)
+  //   return () => window.removeEventListener("scroll", handleInfiniteScroll)
+  // }, [loading, hasMore])
+  
+  useEffect(()=>{
+    const observer=new IntersectionObserver((entry)=>{
+      if(entry[0].isIntersecting && !loading){
+        setPage((prev)=>prev+1);
+      }
+    },{threshold:1})
+    if(inputref.current){
+      observer.observe(inputref.current)
     }
-  }, [page])
+
+    return ()=>{
+      if(inputref.current){
+        observer.unobserve(inputref.current)
+      }
+    }
 
 
-  useEffect(() => {
-    if (!hasMore) return;
-    const observer = new IntersectionObserver((entry) => {
-      if (entry[0].isIntersecting && !loading) {
-        setPage((prev) => prev + 1);
-      }
-    }, { threshold: 0.5 })
-    if (inputRef.current) {
-      observer.observe(inputRef.current);
-    }
-    return () => {
-      if (inputRef.current) {
-        observer.unobserve(inputRef.current)
-      }
-    }
-  }, [loading, hasMore]);
+  },[loading,hasMore])
+
 
   return (
     <div className="App">
       <div>
-        {items.map((val, index) => (
-          <div style={{ padding: "20px", border: "1px solid gray" }} key={val.id}>{index + 1}.{val.title}</div>
+        {items.map((item) => (
+          <div key={item.id} style={{ padding: "20px", border: "1px solid black" }}>{item.title}</div>
         ))}
       </div>
-      {hasMore && (
-        <div ref={inputRef}>
-          {loading && (
-            <div style={{ padding: "20px", border: "1px solid gray",color:"red"}}>loading...</div>
-          )}
-        </div>
-      )}
-      {!hasMore && (
-        <div>No more data</div>
-      )}
+       <div
+        ref={inputref}
+        style={{ height: "50px", textAlign: "center" }}
+      >
+        {loading && <p>Loading...</p>}
+      </div>
+
+
+      {!hasMore && <p style={{ textAlign: "center" }}>No more data</p>}
     </div>
   );
 }
