@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 function App() {
   const [page, setPage] = useState(1);
   const [items, setItems] = useState([]);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false)
   const [hasMore, setHasMore] = useState(true)
   const inputref=useRef(null)
