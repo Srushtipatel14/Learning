@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
+//https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}
+
 function App() {
   const [inval,setInval]=useState("");
+  const lastTime=useRef(0)
 
   const fetchData=()=>{
     console.log(inval)
@@ -9,11 +12,11 @@ function App() {
 
   useEffect(()=>{
     if(inval==='') return;
-    const timer=setTimeout(()=>{
+    const time=new Date();
+    if(time-lastTime.current>=500){
       fetchData()
-    },500);
-
-    return ()=>clearTimeout(timer)
+      lastTime.current=time;
+    }
   },[inval])
 
   return (
