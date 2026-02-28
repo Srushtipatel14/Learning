@@ -2,24 +2,73 @@ import { useEffect, useRef, useState } from "react";
 //https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}
 
 function App() {
-  const [inputVal, setInputVal] = useState('');
+  const [items, setItems] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const inputRef = useRef(null);
 
-  const fetchdata =() => {
-    console.log(inputVal)
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}`);
+      const data = await res.json();
+
+      if (data.length === 0) {
+        setHasMore(false);
+        return;
+      }
+      setItems((prev) => [...prev, ...data]);
+    } catch (error) {
+      console.log(error);
+    }
+    finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
-    const time = setTimeout(() => {
-      if (inputVal === '') return;
-      fetchdata();
-    }, 500);
+    if (hasMore) {
+      fetchData();
+    }
+  }, [page])
 
-    return () => clearTimeout(time);
-  }, [inputVal])
+  useEffect(()=>{
+    const observer=new IntersectionObserver((entry)=>{
+      if(entry[0].isIntersecting && !loading){
+        setPage((prev)=>prev+1)
+      }
+    },{threshold:1});
+
+    const val=inputRef.current;
+    if(val){
+      observer.observe(val)
+    }
+
+    return ()=>{
+      if(val){
+        observer.unobserve(val)
+      }
+    }
+  },[hasMore,loading])
 
   return (
     <div className="App">
-      <input onChange={(e) => setInputVal(e.target.value)} />
+      <div>
+        {items.map((item, index) => (
+          <div style={{padding:"30px",border:"1px solid grey"}} key={index}>{index + 1}.{item.title}</div>
+        ))}
+      </div>
+
+      <div ref={inputRef}>
+        {loading && (
+          <div style={{padding:"30px",backgroundColor:"grey"}}>Loading...</div>
+        )}
+      </div>
+
+      {!hasMore && (
+        <div>No more data available</div>
+      )}
     </div>
   );
 }
