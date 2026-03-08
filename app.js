@@ -1,59 +1,23 @@
+const worker=new Worker("worker.js");
 
+document.addEventListener("DOMContentLoaded", function () {
+    const sum = document.getElementById("sum");
+    const color = document.getElementById("color");
 
-const processA = () => {
-    return new Promise((resolve) => {
-        console.log("Process A started")
-        setTimeout(() => {
-            console.log("Process A finished")
-            resolve('Process A finished')
-        }, 0)
+    sum.addEventListener("click",function(){
+        worker.postMessage("sum")
     })
-}
 
-const processB = () => {
-    return new Promise((resolve) => {
-        console.log("Process B started")
-        setTimeout(() => {
-            console.log("Process B finished")
-            resolve('Process B finished')
-        }, 0)
-    })
-}
-
-const processC = () => {
-    return new Promise((resolve) => {
-        console.log("Process C started")
-        setTimeout(() => {
-            console.log("Process C finished")
-            resolve('Process C finished')
-        }, 0)
-    })
-}
-
-const processD = () => {
-    return new Promise((resolve) => {
-        console.log("Process D started")
-        setTimeout(() => {
-            console.log("Process D finished")
-            resolve('Process D finished')
-        })
-    }, 0)
-}
-
-
-async function processFlow() {
-    try {
-        const proA = processA();
-        const proD = processD();
-        proA.then(() => processB());
-
-        await Promise.all([proA, proD]);
-        console.log("Process A and D completed successfully");
-
-        processC();
-    } catch (error) {
-        console.log(error)
+    worker.onmessage=function(message){
+        alert(`sum is ${message.data}`)
     }
-}
 
-processFlow();
+    color.addEventListener("click", function () {
+        if (document.body.style.backgroundColor !== 'red') {
+            document.body.style.backgroundColor = 'red'
+        }
+        else {
+            document.body.style.backgroundColor = 'white';
+        }
+    });
+})
