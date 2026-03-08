@@ -1,4 +1,4 @@
-const { get } = require("http")
+
 
 const processA = () => {
     return new Promise((resolve) => {
@@ -56,10 +56,4 @@ async function processFlow() {
     }
 }
 
-//processFlow();
-
-const val=[1,2,3]
-
-const sum=(x,y,z)=>x+y+z;
-
-console.log(sum(...val))
+processFlow();
