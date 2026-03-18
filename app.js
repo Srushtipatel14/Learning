@@ -1,40 +1,11 @@
+const crypto = require('crypto');
 
-const promise1 = new Promise((resolve,reject) => {
-    setTimeout(() => {
-        resolve("First task completed")
-    }, 1000)
-})
+console.time('total');
 
-const promise2 = new Promise((resolve,reject) => {
-    setTimeout(() => {
-        reject("Second task completed")
-    }, 2000)
-})
+for (let i = 0; i < 10; i++) {
+  console.time(`Task ${i}`);
 
-async function performTasks() {
-    try {
-        const result1 = await promise1;
-        console.log(result1); // 'First task completed'
-
-        const result2 = await promise2;
-        console.log(result2); // 'Second task completed'
-    } catch (error) {
-        console.error(error); // Catches any rejection or error
-    }
+  crypto.pbkdf2('pass', 'salt', 5000000, 64, 'sha512', () => {
+    console.timeEnd(`Task ${i}`);
+  });
 }
-
-//performTasks();
-
-promise1.then((msg)=>{
-    console.log(msg)
-    return promise2
-})
-.then((msg)=>{
-    console.log(msg)
-})
-.catch((error)=>{
-    console.log("Error",error)
-}).finally(()=>{
-    console.log("finally execute")
-})
-
