@@ -1,16 +1,17 @@
-function debounce(callback, time) {
-    let timer;
+function throttling(callback, time) {
+    let last=0;
     return function (...args) {
-     clearTimeout(timer);
-     timer=setTimeout(()=>{
-        callback(...args)
-     },time)
+        const now=new Date()
+        if(now-last>=time){
+            callback(...args)
+            last=now;
+        }
     }
 }
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    const val = debounce(function (va) {
+    const val = throttling(function (va) {
         console.log(va)
     }, 500)
     document.getElementById("list").addEventListener("input", function (e) {
