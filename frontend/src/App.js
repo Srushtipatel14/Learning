@@ -1,23 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
 
 function App() {
   const [val, setVal] = useState("");
+  const last = useRef(0)
 
   const fetchData = () => {
     console.log(val)
   }
 
   useEffect(() => {
-    let timer;
-    timer = setTimeout(() => {
+    const now = new Date();
+    if (now - last.current >= 500) {
       fetchData();
-    }, 500);
-    return () => {
-      clearTimeout(timer)
+      last.current = now;
     }
   }, [val])
-  
+
   const handleChage = (e) => {
     setVal(e.target.value)
   }
