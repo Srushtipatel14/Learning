@@ -1,7 +1,19 @@
+function debounce(callback, time) {
+    let timer;
+    return function (...args) {
+     clearTimeout(timer);
+     timer=setTimeout(()=>{
+        callback(...args)
+     },time)
+    }
+}
+
+
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("list").addEventListener("click",function(e){
-        if(e.target.tagName==='LI'){
-            console.log(e.target.innerHTML)
-        }
+    const val = debounce(function (va) {
+        console.log(va)
+    }, 500)
+    document.getElementById("list").addEventListener("input", function (e) {
+        val(e.target.value)
     })
 })
