@@ -1,11 +1,20 @@
-const crypto = require("crypto");
+const worker=new Worker("worker.js")
+document.addEventListener("DOMContentLoaded",function(){
 
-console.time('total');
+    worker.onmessage=function(msg){
+        alert(msg.data)
+    }
 
-for (let i = 0; i < 10; i++) {
-  console.time(`Task ${i}`);
-    
-  crypto.pbkdf2('pass', 'salt', 5000000, 64, 'sha512', () => {
-    console.timeEnd(`Task ${i}`);
-  });
-}
+    document.getElementById("sum").addEventListener("click",function(){
+       worker.postMessage("sum")
+    });
+
+    document.getElementById("color").addEventListener('click',function(){
+        if(document.body.style.backgroundColor!=='red'){
+            document.body.style.backgroundColor="red";
+        }
+        else{
+            document.body.style.backgroundColor="white"
+        }
+    })
+})
