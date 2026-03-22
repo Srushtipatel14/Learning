@@ -8,8 +8,7 @@ function Chat() {
 
     const sendMessage = async () => {
         if (!input.trim()) return;
-        
-        const userMessage = { role: "user", content: input };
+        const usrMessage = { role: "user", content: input };
         setMessages((prev) => [...prev, userMessage]);
 
         setInput("");
