@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function App() {
 
   const [inpval,setInpVal]=useState("");
+  const val=useRef(0)
 
   const fetchData=()=>{
     console.log(inpval)
@@ -14,12 +15,11 @@ function App() {
   }
 
   useEffect(()=>{
-    const timer=setTimeout(()=>{
-      fetchData()
-    },500)
-    return ()=>{
-      clearTimeout(timer)
-    }
+   const time=new Date();
+   if(time-val.current>=500){
+    fetchData();
+    val.current=time;
+   }
   },[inpval]);
 
   return (
