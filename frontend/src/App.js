@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
 
 function App() {
+
+  const [inpval,setInpVal]=useState("");
+
+  const fetchData=()=>{
+    console.log(inpval)
+  }
+
+  const handlechange=(e)=>{
+    const {value}=e.target;
+    setInpVal(value)
+  }
+
+  useEffect(()=>{
+    const timer=setTimeout(()=>{
+      fetchData()
+    },500)
+    return ()=>{
+      clearTimeout(timer)
+    }
+  },[inpval]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input onChange={handlechange} value={inpval}/>
     </div>
   );
 }
