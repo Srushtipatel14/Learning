@@ -6,7 +6,7 @@ function App() {
   const [hasmore, setHasMore] = useState(true)
   const [page, setPage] = useState(1)
   const [item, setItem] = useState([])
-  const inputRef = useRef();
+  const inputRef = useRef('');
 
   const fetchData = async () => {
     try {
@@ -27,16 +27,23 @@ function App() {
     }
   }
 
-  const handleScroll = () => {
-    const totalHeight = document.documentElement.scrollHeight;
-    const viewHeight = window.innerHeight;
-    const scrollHeight = document.documentElement.scrollTop;
+  useEffect(() => {
+    if(loading && !hasmore) return;
+    const observer = new IntersectionObserver((entry) => {
+      if (entry[0].isIntersecting && hasmore) {
+        setPage((prev) => prev + 1)
+      }
+    }, { threshold: 0.5 })
 
-    if (totalHeight - 10 <= viewHeight + scrollHeight) {
-      if (loading && hasmore) return;
-      setPage((prev) => prev + 1)
+    const val = inputRef.current;
+    if (val) {
+      observer.observe(val)
     }
-  }
+
+    return () => {
+      observer.unobserve(val)
+    }
+  }, [hasmore, loading])
 
   useEffect(() => {
     if (hasmore) {
@@ -44,12 +51,7 @@ function App() {
     }
   }, [page])
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [loading, hasmore])
+
 
   return (
     <div className="App">
@@ -58,10 +60,11 @@ function App() {
           <div key={index} style={{ padding: "30px", border: "1px solid black" }}>{val.title}</div>
         ))}
       </div>
-
-      {loading && (
-        <div style={{ padding: "30px", border: "1px solid black", backgroundColor: "green" }}>loading...</div>
-      )}
+      <div ref={inputRef}>
+        {loading && (
+          <div style={{ padding: "30px", border: "1px solid black", backgroundColor: "green" }}>loading...</div>
+        )}
+      </div>
       {!hasmore && (
         <div style={{ padding: "30px", border: "1px solid black" }}>No more data available</div>
       )}
