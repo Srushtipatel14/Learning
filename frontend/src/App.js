@@ -3,17 +3,18 @@ import { useEffect, useRef, useState } from "react";
 function App() {
 
   const [inpval, setInpval] = useState("")
+  const inpref=useRef(0)
 
   const fetchData = () => {
     console.log(inpval)
   }
 
   useEffect(() => {
-    const value = setTimeout(() => {
-      fetchData()
-    }, 500)
-    return () => {
-      clearTimeout(value)
+    if(inpval==='') return;
+    const now=new Date()
+    if(now-inpref.current>=500){
+      fetchData();
+      inpref.current=now;
     }
   }, [inpval])
 
