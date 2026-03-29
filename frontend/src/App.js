@@ -25,19 +25,7 @@ function App() {
   
   return (
     <div className="App">
-      <div>
-        {item.map((val, index) => (
-          <div key={index} style={{ padding: "30px", border: "1px solid black" }}>{val.title}</div>
-        ))}
-      </div>
-      <div ref={inputRef}>
-        {loading && (
-          <div style={{ padding: "30px", border: "1px solid black", backgroundColor: "green" }}>loading...</div>
-        )}
-      </div>
-      {!hasmore && (
-        <div style={{ padding: "30px", border: "1px solid black" }}>No more data available</div>
-      )}
+      <input onChange={handleChange} value={inpval}/>
     </div>
   )
 }
