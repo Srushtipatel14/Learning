@@ -1,70 +1,32 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+//https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}
 
+export const Child=React.memo((data)=>{
+  console.log("child render",data)
+  return(
+    <h1>Child</h1>
+  )
+})
 function App() {
-  const [items, setItems] = useState([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false)
-  const [hasMore, setHasMore] = useState(true);
-  const refval = useRef('')
-  const fetchdata = async () => {
-    try {
-      setLoading(true);
-      const resData = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}`);
-      const data = await resData.json();
-      if (data.length === 0) {
-        setHasMore(false)
-        return;
-      }
-      setItems((prev) => [...prev, ...data]);
-    } catch (error) {
-      console.log(error)
+
+  const [count,setCount]=useState(0)
+
+  const userData=useMemo(()=>{
+    return {
+      name:"srushti"
     }
-    finally {
-      setLoading(false)
-    }
+  },[]);
+
+  console.log("parent render")
+
+  const handleClick=()=>{
+    setCount((prev)=>prev+1)
   }
-
-  useEffect(() => {
-    if (hasMore) {
-      fetchdata();
-    }
-  }, [page])
-
-  useEffect(() => {
-    if (loading && !hasMore) return
-
-    const observer = new IntersectionObserver((entry) => {
-      if (entry[0].isIntersecting && hasMore) {
-        setPage((prev) => prev + 1)
-      }
-    }, { threshold: 0.5 })
-
-    const val = refval.current;
-    if (val) {
-      observer.observe(val)
-    }
-    return () => {
-      observer.unobserve(val)
-    }
-  }, [loading, hasMore])
-
 
   return (
     <div className="App">
-      <div>
-        {items.map((item, index) => (
-          <div key={index} style={{ padding: "30px", border: "1px solid black" }}>{item.title}</div>
-        ))}
-      </div>
-      <div ref={refval}>
-        {loading && (
-          <div style={{ padding: "30px", border: "1px solid black", backgroundColor: "grey" }}>Loading...</div>
-        )}
-
-      </div>
-      {!hasMore && (
-        <div style={{ padding: "30px", border: "1px solid black" }}>No more data available</div>
-      )}
+      <button onClick={handleClick}>Click : {count}</button>
+      <Child data={userData}/>
     </div>
   )
 }
