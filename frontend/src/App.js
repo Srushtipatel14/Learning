@@ -1,30 +1,69 @@
 import { useEffect, useRef, useState } from "react";
-//https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}
-function App() {
-  const [inpval, setInpval] = useState("");
-  const refval=useRef(0)
 
-  const fetchData = () => {
-    console.log(inpval)
+function App() {
+  const [items, setItems] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false)
+  const [hasMore, setHasMore] = useState(true);
+
+  const fetchdata = async () => {
+    try {
+      setLoading(true);
+      const resData = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}`);
+      const data = await resData.json();
+      if (data.length === 0) {
+        setHasMore(false)
+        return;
+      }
+      setItems((prev) => [...prev, ...data]);
+    } catch (error) {
+      console.log(error)
+    }
+    finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
-    if (inpval === '') return;
-    const now=new Date()
-    if(now-refval.current>=500){
-      fetchData();
-      refval.current=now;
+    if (loading && !hasMore) return
+    if (hasMore) {
+      fetchdata();
     }
-  }, [inpval]);
+  }, [page])
 
-  const handleChange = (e) => {
-    const { value } = e.target;
-    setInpval(value)
+
+  const handleScroll = () => {
+    const totalheight = document.documentElement.scrollHeight;
+    const viewHeight = window.innerHeight;
+    const scrollHeight = document.documentElement.scrollTop;
+    console.log(totalheight, viewHeight, scrollHeight)
+    if (totalheight-10<= viewHeight + scrollHeight) {
+      setPage((prev) => prev + 1)
+    }
   }
-  
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [loading, hasMore])
+
+
   return (
     <div className="App">
-      <input onChange={handleChange} value={inpval}/>
+      <div>
+        {items.map((item, index) => (
+          <div key={index} style={{ padding: "30px", border: "1px solid black" }}>{item.title}</div>
+        ))}
+      </div>
+      {loading && (
+        <div style={{ padding: "30px", border: "1px solid black", backgroundColor: "grey" }}>Loading...</div>
+      )}
+
+      {!hasMore && (
+        <div style={{ padding: "30px", border: "1px solid black" }}>No more data available</div>
+      )}
     </div>
   )
 }
