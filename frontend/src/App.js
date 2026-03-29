@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 //https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}
 function App() {
   const [inpval, setInpval] = useState("");
+  const refval=useRef(0)
 
   const fetchData = () => {
     console.log(inpval)
@@ -9,12 +10,10 @@ function App() {
 
   useEffect(() => {
     if (inpval === '') return;
-    const timer = setTimeout(() => {
-      fetchData()
-    }, 500)
-
-    return () => {
-      clearTimeout(timer)
+    const now=new Date()
+    if(now-refval.current>=500){
+      fetchData();
+      refval.current=now;
     }
   }, [inpval]);
 
