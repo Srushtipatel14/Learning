@@ -2,7 +2,7 @@ import {useDispatch,useSelector} from "react-redux";
 import { increment,decrement } from "./features/counter/couterSlice";
 
 function App() {
-  const count=useSelector((state)=>state.counter.value);
+  const count=useSelector((state)=>state.count.value);
   const dispatch=useDispatch()
   return (
     <div className="App">
