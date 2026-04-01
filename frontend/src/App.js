@@ -6,6 +6,7 @@ function App() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const refval = useRef()
 
   const fetchData = async () => {
     try {
@@ -31,22 +32,24 @@ function App() {
     }
   }, [page]);
 
-  const handleScroll = () => {
-    const totalHeight = document.documentElement.scrollHeight;
-    const viewHeight = window.innerHeight;
-    const scrollHeight = document.documentElement.scrollTop;
-
-    if (totalHeight <= viewHeight + scrollHeight + 1) {
-      setPage((prev) => prev + 1)
-    }
-  }
-
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll)
+    if (loading && !hasMore) return;
+
+    const observer = new IntersectionObserver((entry) => {
+      if (entry[0].isIntersecting && hasMore) {
+        setPage((prev) => prev + 1)
+      }
+    }, { threshold: 1 })
+
+    const val = refval.current;
+    if (val) {
+      observer.observe(val)
+    }
     return () => {
-      window.removeEventListener("scroll", handleScroll)
+      observer.unobserve(val)
     }
   }, [loading, hasMore])
+
 
   return (
     <div className="App">
@@ -56,9 +59,11 @@ function App() {
         ))}
       </div>
 
-      {loading && (
-        <div style={{ padding: "30px", border: "1px solid black", backgroundColor: "grey" }}>Loading...</div>
-      )}
+      <idv ref={refval}>
+        {loading && (
+          <div style={{ padding: "30px", border: "1px solid black", backgroundColor: "grey" }}>Loading...</div>
+        )}
+      </idv>
 
       {!hasMore && (
         <div style={{ padding: "30px", border: "1px solid black" }}>No more data available</div>
