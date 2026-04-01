@@ -2,26 +2,27 @@ import { useEffect, useState } from "react";
 
 function App() {
 
-  const [inputVal,setInputVal]=useState("");
+  const [inputVal, setInputVal] = useState("");
 
-  const handleChnage=(e)=>{
-    const {value}=e.target;
+  const handleChnage = (e) => {
+    const { value } = e.target;
     setInputVal(value)
   }
 
-  const fetchData=()=>{
+  const fetchData = () => {
     console.log(inputVal)
   }
 
-  useEffect(()=>{
-    const timer=setTimeout(()=>{
+  useEffect(() => {
+    if (inputVal === '') return;
+    const timer = setTimeout(() => {
       fetchData()
-    },500)
+    }, 500)
 
-    return ()=>{
+    return () => {
       clearTimeout(timer)
     }
-  })
+  }, [inputVal])
 
   return (
     <div className="App">
