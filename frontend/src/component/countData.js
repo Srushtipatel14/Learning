@@ -1,6 +1,6 @@
-import { useSelector } from "react-redux";
+import { appSelector } from "../customHooks/hooks";
 const DispalyCount = () => {
-    const count = useSelector((state) => state.counter.value);
+    const count = appSelector((state) => state.counter.value);
     return (
         <h2>Count : {count}</h2>
     )

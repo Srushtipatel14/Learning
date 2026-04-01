@@ -1,9 +1,9 @@
-import { useDispatch } from "react-redux";
+import { appDispatch } from "./customHooks/hooks";
 import { increment, decrement } from "./features/counter/counterSlice";
 import DispalyCount from "./component/countData";
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = appDispatch();
   return (
     <div className="App">
       <button onClick={() => dispatch(increment())}>Incement</button>
