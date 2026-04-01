@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function App() {
 
   const [inputVal, setInputVal] = useState("");
+  const inpref=useRef(0)
 
   const handleChnage = (e) => {
     const { value } = e.target;
@@ -15,12 +16,10 @@ function App() {
 
   useEffect(() => {
     if (inputVal === '') return;
-    const timer = setTimeout(() => {
-      fetchData()
-    }, 500)
-
-    return () => {
-      clearTimeout(timer)
+    const now = new Date()
+    if (now - inpref.current >= 500) {
+      fetchData();
+      inpref.current=now
     }
   }, [inputVal])
 
