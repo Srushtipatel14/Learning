@@ -1,20 +1,31 @@
-import {useDispatch,useSelector} from "react-redux";
-import { increment,decrement } from "./features/counter/couterSlice";
+import { useEffect, useState } from "react";
 
 function App() {
-  const count=useSelector((state)=>state.count.value);
-  const dispatch=useDispatch()
+
+  const [inputVal,setInputVal]=useState("");
+
+  const handleChnage=(e)=>{
+    const {value}=e.target;
+    setInputVal(value)
+  }
+
+  const fetchData=()=>{
+    console.log(inputVal)
+  }
+
+  useEffect(()=>{
+    const timer=setTimeout(()=>{
+      fetchData()
+    },500)
+
+    return ()=>{
+      clearTimeout(timer)
+    }
+  })
+
   return (
     <div className="App">
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "30px", gap: "20px" }}>
-          <button onClick={()=>dispatch(increment())} style={{ borderStyle: "none", padding: "10px", borderRadius: "10px", backgroundColor: "lightGray" }}>Increment</button>
-          <button onClick={()=>dispatch(decrement())} style={{ borderStyle: "none", padding: "10px", borderRadius: "10px", backgroundColor: "lightGray" }}>Decrement</button>
-        </div>
-        <div>
-          <h1>Count : {count}</h1>
-        </div>
-      </div>
+      <input onChange={handleChnage} value={inputVal} />
     </div>
   )
 }
