@@ -1,34 +1,18 @@
-import React, { useMemo, useState } from "react";
-
-export const Child = React.memo((data) => {
-  console.log("child render",data)
-  return (
-    <h1>Child</h1>
-  )
-})
+import { useDispatch } from "react-redux";
+import { increment, decrement } from "./features/counter/counterSlice";
+import DispalyCount from "./component/countData";
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  const handleCount = () => {
-    setCount((prev) => prev + 1)
-  }
-  console.log("parent render")
-
-  const userData = useMemo(() => {
-    return {
-      name: "Srushti"
-    }
-  },[]);
-
+  const dispatch = useDispatch();
   return (
     <div className="App">
-      <button onClick={handleCount}>Count : {count}</button>
+      <button onClick={() => dispatch(increment())}>Incement</button>
 
-      <Child data={userData} />
+      <button onClick={() => dispatch(decrement())}>Incement</button>
+
+      <DispalyCount/>
     </div>
-
-  )
+  );
 }
 
 export default App;
