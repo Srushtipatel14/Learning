@@ -1,38 +1,122 @@
-.App {
-  text-align: center;
+.container {
+  display: flex;margin-top: 20px;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 32px;
+  font-family: sans-serif;
+  font-weight: 600;
+  height: 100vh;
+  width: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header {
+  margin-bottom: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.btndiv {
   display: flex;
   flex-direction: column;
+  gap: 20px;
+  width: 100%;
   align-items: center;
+}
+
+.btncontainer {
+  display: flex;
+  gap: 20px;
+  width: 25%;
+}
+
+/* ✅ Equal size buttons */
+.btn {
+  flex: 1;                 /* same width */
+  height: 100px;           /* same height */
+  border-radius: 8px;
+  font-size: 18px;
+  background-color: #fff;
+  cursor: pointer;
+
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+
+  transition: 0.2s;
 }
 
-.App-link {
-  color: #61dafb;
+.btn:hover {
+  transform: scale(1.05);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Colors */
+.success {
+  border: 4px solid #08cc08;
+  color: #08cc08;
+}
+
+.info {
+  border: 4px solid #12daf9;
+  color: #12daf9;
+}
+
+.warning {
+  border: 4px solid #f0891a;
+  color: #f0891a;
+}
+
+.error {
+  border: 4px solid #f6084f;
+  color: #f6084f;
+}
+
+.toastmsg{
+  width: 350px;
+  padding: 10px;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+  border-radius: 10px;
+}
+
+.successMsg {
+  background-color: #08cc08;
+  color: #fff;
+}
+
+.errorMsg {
+  background-color: #f6084f;
+  color: #fff;
+}
+.infoMsg {
+  background-color: #12daf9;
+  color: #fff;
+}
+.warningMsg {
+  background-color: #f0891a;
+  color: #fff;
+}
+
+.top-left {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}
+
+.top-right {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+.bottom-left {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+
+.bottom-right {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
 }
