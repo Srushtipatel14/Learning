@@ -1,12 +1,12 @@
-import NotificationComponent from "./component/notification.js";
-import("./App.css");
+import Home from "./home";
+import ToastProvider from "./toast/toastProvider";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <NotificationComponent />
-    </div>
-
-  );
+    <ToastProvider>
+      <Home />
+    </ToastProvider>
+  )
 }
-export default App;
+
+export default App
