@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { RiDeleteBin5Line } from "react-icons/ri";
-
+import { MdModeEdit } from "react-icons/md";
+import AddEmp from "./AddEmp";
+import { useContext } from "react";
+import { VisibleContext } from "./VisibleContext"
 const Home = () => {
-    const [users, setUsers] = useState([]);
-    const [selectedUser, setSelectedUser] = useState(null);
+    const { visible, setVisible, users, setUsers,setFormData,selectedUser,setSelectedUser} = useContext(VisibleContext)
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -26,6 +28,20 @@ const Home = () => {
 
     const removeEmployee = (id) => {
         const filterUSer = users.filter((user) => user.id !== id);
+        if (selectedUser?.id === id) {
+            const index = users.findIndex((user) => user.id === id);
+            if (index === -1) {
+                setSelectedUser(null)
+            }
+            else {
+                if (index >= filterUSer.length) {
+                    setSelectedUser(filterUSer[index - 1])
+                }
+                else {
+                    setSelectedUser(filterUSer[index])
+                }
+            }
+        }
         setUsers(filterUSer);
     }
 
@@ -34,37 +50,54 @@ const Home = () => {
         setSelectedUser(user)
     }
 
+    const editEmployee = (id) => {
+        const user=users.find((user)=>user.id===id);
+        setVisible(true);
+        setFormData(user)
+    }
+
     return (
-        <div className="container">
-            <div className="Heading_Section">
-                <div>Employee Management System</div>
-                <button>Add Employee</button>
-            </div>
-            <div className="content">
-                <div className="employee_list">
-                    <div className="header"> Employee List </div>
-                    {users.map((user) => (
-                        <div key={user?.id} onClick={() => userSelectionFuntion(user?.id)} className="employee_item">
-                            <span>{user?.Employee_name + " " + user?.Employee_Surname}</span>
-                            <RiDeleteBin5Line onClick={(e) => {
-                                e.stopPropagation();
-                                removeEmployee(user?.id)
-                            }} color="red" size={24} />
-                        </div>
-                    ))}
+        <>
+            {visible && <AddEmp />}
+            <div className="container" style={{ opacity: visible ? "0.3" : "1" }}>
+                <div className="Heading_Section">
+                    <div>Employee Management System</div>
+                    <button onClick={() => setVisible(true)}>Add Employee</button>
                 </div>
-                <div className="employee_details">
-                    <div className="header"> Employee Details </div>
-                    <div className="detail_Section">
-                        <img src={selectedUser?.imageURl}></img>
-                        <span>{selectedUser?.Employee_name + " " + selectedUser?.Employee_Surname}</span>
-                        <span>{selectedUser?.Designation}</span>
-                        <span>Birth Date : {selectedUser?.DOB}</span>
-                        <span>Gender : {selectedUser?.Gender}</span>
+                <div className="content">
+                    <div className="employee_list">
+                        <div className="header"> Employee List </div>
+                        {users.map((user) => (
+                            <div key={user?.id} onClick={() => userSelectionFuntion(user?.id)} className={selectedUser?.id === user?.id ? "employee_item_selected" : "employee_item"}>
+                                <span>{user?.Employee_name + " " + user?.Employee_Surname}</span>
+                                <div>
+                                    <MdModeEdit size={20} color="blue" style={{ cursor: "pointer" }} onClick={(e) =>{
+                                        e.stopPropagation()
+                                         editEmployee(user?.id)
+                                    }} />
+                                    <RiDeleteBin5Line size={20} color="red" style={{ cursor: "pointer" }} onClick={(e) => {
+                                        e.stopPropagation()
+                                        removeEmployee(user?.id)
+                                    }} />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="employee_details">
+                        <div className="header"> Employee Details </div>
+                        {selectedUser && (
+                            <div className="detail_Section">
+                                <img alt="image_user" src={selectedUser?.imageURl}></img>
+                                <span>{selectedUser?.Employee_name + " " + selectedUser?.Employee_Surname}</span>
+                                <span>{selectedUser?.Designation}</span>
+                                <span>Birth Date : {selectedUser?.DOB}</span>
+                                <span>Gender : {selectedUser?.Gender}</span>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
