@@ -50,11 +50,11 @@ const Home = () => {
         setSelectedUser(user)
     }
 
-    const editEmployee = (id) => {
-        const user=users.find((user)=>user.id===id);
-        setVisible(true);
-        setFormData(user)
-    }
+    // const editEmployee = (id) => {
+    //     const user=users.find((user)=>user.id===id);
+    //     setVisible(true);
+    //     setFormData(user)
+    // }
 
     return (
         <>
@@ -71,10 +71,10 @@ const Home = () => {
                             <div key={user?.id} onClick={() => userSelectionFuntion(user?.id)} className={selectedUser?.id === user?.id ? "employee_item_selected" : "employee_item"}>
                                 <span>{user?.Employee_name + " " + user?.Employee_Surname}</span>
                                 <div>
-                                    <MdModeEdit size={20} color="blue" style={{ cursor: "pointer" }} onClick={(e) =>{
+                                    {/* <MdModeEdit size={20} color="blue" style={{ cursor: "pointer" }} onClick={(e) =>{
                                         e.stopPropagation()
                                          editEmployee(user?.id)
-                                    }} />
+                                    }} /> */}
                                     <RiDeleteBin5Line size={20} color="red" style={{ cursor: "pointer" }} onClick={(e) => {
                                         e.stopPropagation()
                                         removeEmployee(user?.id)
