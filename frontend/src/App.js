@@ -1,11 +1,10 @@
-import Home from "./home";
-import ToastProvider from "./toast/toastProvider";
-
+import Home from './home';
+import './App.css';
 const App = () => {
   return (
-    <ToastProvider>
-      <Home />
-    </ToastProvider>
+    <div>
+      <Home/>
+    </div>
   )
 }
 

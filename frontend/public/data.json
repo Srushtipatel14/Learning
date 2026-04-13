@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "Employee_name": "Srushti",
+    "Employee_Surname": "Patel",
+    "Designation": "Software Engineer",
+    "Salary": 50000,
+    "DOB": "2002-03-14",
+    "Gender": "Female",
+    "imageURl": "https://avatars.githubusercontent.com/u/129090235?v=4"
+  },
+  {
+    "id": 2,
+    "Employee_name": "Amit",
+    "Employee_Surname": "Shah",
+    "Designation": "Backend Developer",
+    "Salary": 60000,
+    "DOB": "1998-07-21",
+    "Gender": "Male",
+    "imageURl": "https://toppng.com/uploads/preview/male-user-filled-icon-man-icon-115533970576b3erfsss1.png"
+  },
+  {
+    "id": 3,
+    "Employee_name": "Priya",
+    "Employee_Surname": "Mehta",
+    "Designation": "Frontend Developer",
+    "Salary": 55000,
+    "DOB": "2000-01-10",
+    "Gender": "Female",
+    "imageURl": "https://toppng.com/uploads/preview/male-user-filled-icon-man-icon-115533970576b3erfsss1.png"
+  },
+  {
+    "id": 4,
+    "Employee_name": "Rahul",
+    "Employee_Surname": "Verma",
+    "Designation": "DevOps Engineer",
+    "Salary": 70000,
+    "DOB": "1997-11-05",
+    "Gender": "Male",
+    "imageURl": "https://toppng.com/uploads/preview/male-user-filled-icon-man-icon-115533970576b3erfsss1.png"
+  },
+  {
+    "id": 5,
+    "Employee_name": "Neha",
+    "Employee_Surname": "Joshi",
+    "Designation": "QA Engineer",
+    "Salary": 48000,
+    "DOB": "1999-04-18",
+    "Gender": "Female",
+    "imageURl": "https://toppng.com/uploads/preview/male-user-filled-icon-man-icon-115533970576b3erfsss1.png"
+  },
+  {
+    "id": 6,
+    "Employee_name": "Karan",
+    "Employee_Surname": "Patel",
+    "Designation": "Full Stack Developer",
+    "Salary": 65000,
+    "DOB": "1996-09-30",
+    "Gender": "Male",
+    "imageURl": "https://toppng.com/uploads/preview/male-user-filled-icon-man-icon-115533970576b3erfsss1.png"
+  },
+  {
+    "id": 7,
+    "Employee_name": "Anjali",
+    "Employee_Surname": "Desai",
+    "Designation": "UI/UX Designer",
+    "Salary": 52000,
+    "DOB": "2001-06-12",
+    "Gender": "Female",
+    "imageURl": "https://toppng.com/uploads/preview/male-user-filled-icon-man-icon-115533970576b3erfsss1.png"
+  },
+  {
+    "id": 8,
+    "Employee_name": "Vikram",
+    "Employee_Surname": "Singh",
+    "Designation": "Project Manager",
+    "Salary": 80000,
+    "DOB": "1995-02-25",
+    "Gender": "Male",
+    "imageURl": "https://toppng.com/uploads/preview/male-user-filled-icon-man-icon-115533970576b3erfsss1.png"
+  },
+  {
+    "id": 9,
+    "Employee_name": "Pooja",
+    "Employee_Surname": "Kapoor",
+    "Designation": "HR Manager",
+    "Salary": 58000,
+    "DOB": "1994-08-14",
+    "Gender": "Female",
+    "imageURl": "https://toppng.com/uploads/preview/male-user-filled-icon-man-icon-115533970576b3erfsss1.png"
+  },
+  {
+    "id": 10,
+    "Employee_name": "Rohit",
+    "Employee_Surname": "Gupta",
+    "Designation": "Data Analyst",
+    "Salary": 62000,
+    "DOB": "1998-12-03",
+    "Gender": "Male",
+    "imageURl": "https://toppng.com/uploads/preview/male-user-filled-icon-man-icon-115533970576b3erfsss1.png"
+  }
+]
