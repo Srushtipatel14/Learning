@@ -1,21 +1,31 @@
-import Home from './home';
-import './App.css';
-import { useState } from 'react';
-import { VisibleContext } from "./VisibleContext";
+import React, { useCallback, useMemo, useState } from 'react'
 
+const Child = React.memo((data) => {
+  console.log("child render",data.data.name)
+  return (
+    <h4>child</h4>
+  )
+})
 
 const App = () => {
-  const [visible, setVisible] = useState(false);
-  const [formData, setFormData] = useState({});
-  const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [count, setCount] = useState(0);
+
+  const handleClick = () => {
+    setCount((prev) => prev + 1)
+  }
+
+  const dataVal=useMemo(()=>{
+    return {
+      name:"situ"
+    }
+  },[])
 
   return (
-    <VisibleContext.Provider value={{ visible, setVisible, formData, setFormData, users, setUsers, selectedUser, setSelectedUser }}>
-      <div>
-        <Home />
-      </div>
-    </VisibleContext.Provider>
+    <div>
+      <Child data={dataVal} />
+      <h1>Count : {count}</h1>
+      <button onClick={handleClick}>Increse</button>
+    </div>
   )
 }
 
