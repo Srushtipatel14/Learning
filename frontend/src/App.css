@@ -1,0 +1,68 @@
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.heading{
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.parent{
+    display: flex;
+    gap:20px
+}
+
+.time{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.time label{
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.time input{
+    padding: 10px;
+    width: 40px;
+    text-align: center;
+    font-size: 30px;
+    border: none;
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.div_btn{
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+.div_btn button{
+    padding: 10px 30px;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 18px;
+}
+
+.start{
+    background-color: green;
+}
+.stop{
+    background-color: red;
+}
+.reset{
+    background-color: orange;
+}
+
