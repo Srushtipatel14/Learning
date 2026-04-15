@@ -1,6 +1,5 @@
 import { increment,decrement } from "./redux/reducer";
 import {useSelector,useDispatch} from "react-redux"
-
 const Count = () => {
     const count=useSelector((state)=>state.counter)
     const dispatch=useDispatch()
