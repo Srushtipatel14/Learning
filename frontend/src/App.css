@@ -1,4 +1,4 @@
-.counter_section{
+.container{
     width: 100%;
     height: 100vh;
     display: flex;
@@ -7,56 +7,62 @@
     flex-direction: column;
 }
 
-.timer_hed{
+.heading{
     font-size: 32px;
+    font-weight: bold;
     margin-bottom: 20px;
 }
 
-.timer_Sec{
+.parent{
+    display: flex;
+    gap:20px
+}
+
+.time{
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    font-size: 24px;
-    gap: 20px;
-    margin-bottom: 20px;
+    background-color:lightgray;
+    position: absolute;
+    z-index:1;
+    top:20%;
+    left: 25%;
+    padding: 10px;
 }
 
-.timer_Sec input{
-    font-size: 24px;
-    width: 50px;
-    text-align: center;
-    border: none;
+
+.employee_name{
+    display: flex;
+    width: 100%;
+    gap:10px;
 }
-.btn_Sec{
+
+.employee_name .fieldVal{
+    width:50%
+}
+
+
+
+.fieldVal{
     display: flex;
     gap: 10px;
+    margin-top: 20px;
 }
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.btn_Sec button{
-    border: none;
+.div_btn button{
     padding: 10px 30px;
+    border: none;
     border-radius: 10px;
-    font-weight: 600;
+    color: #fff;
+    font-size: 18px;
 }
 
-.start {
+.start{
     background-color: green;
-    color: #fff;
 }
-
-.stop {
+.stop{
     background-color: red;
-    color: #fff;
+}
+.reset{
+    background-color: orange;
 }
 
-.reset {
-    background-color: orange;
-    color: #fff;
-}
