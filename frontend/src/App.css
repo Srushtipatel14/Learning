@@ -1,74 +1,27 @@
-.counter_section {
-    width: 100%;
-    height: 100vh;
+.container{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    width: 100%;
+    height: 100vh;
 }
 
-.timer_hed {
-    font-size: 32px;
+.sub1{
+    font-family: sans-serif;
+    font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-.timer_Sec {
+.sub2{
     display: flex;
-    gap: 20px
+    gap: 20px;
 }
-
-.time {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-bottom: 20px;
-}
-
-.time input {
+.sub2 button{
+    font-family: sans-serif;
+    font-size: 20px;
+    background-color: #fff;
     padding: 10px;
-    width: 35px;
-    border: none;
-    font-size: 30px;
-    text-align: center;
-}
-
-input::-webkit-inner-spin-button,
-input::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.div_btn {
-    display: flex;
-    gap: 10px;
-}
-
-.div_btn button {
-    padding: 10px 30px;
-    border: none;
     border-radius: 10px;
-    color: #fff;
-    font-size: 18px;
-}
-
-.start {
-    background-color: green;
-}
-
-.stop {
-    background-color: red;
-}
-
-.reset {
-    background-color: orange;
-}
-
-.colon{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 25px;
-    font-size: 24px;
 }
