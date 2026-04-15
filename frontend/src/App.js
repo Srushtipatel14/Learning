@@ -1,12 +1,8 @@
 import './App.css';
-import { Store } from './Redux/store';
-import {Provider} from "react-redux";
-import Counter from './Components/counter';
+import Display from './Components/display';
 const App = () => {
   return (
-    <Provider store={Store}>
-      <Counter/>
-    </Provider>
+   <Display/>
   )
 }
 
