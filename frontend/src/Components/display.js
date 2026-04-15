@@ -8,17 +8,21 @@ const Display = () => {
 
   useEffect(() => {
     timeRef.current = new Worker(new URL(('./worker.js'), import.meta.url));
-    timeRef.current.onmessage=(e)=>{
+    timeRef.current.onmessage = (e) => {
       alert(e.data);
     }
 
-    return ()=>{
-      timeRef.current.terminate();
+    return () => {
+      if(timeRef.current){
+        timeRef.current.terminate();
+      }
     }
   }, [])
 
   const handleCalculation = () => {
-    timeRef.current.postMessage("send")
+    if (timeRef.current) {
+      timeRef.current.postMessage("send")
+    }
   }
 
   const chnageDisplay = () => {
