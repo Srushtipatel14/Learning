@@ -1,4 +1,4 @@
-.container{
+.counter_section {
     width: 100%;
     height: 100vh;
     display: flex;
@@ -7,48 +7,45 @@
     flex-direction: column;
 }
 
-.heading{
+.timer_hed {
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-.parent{
+.timer_Sec {
     display: flex;
-    gap:20px
+    gap: 20px
 }
 
-.time{
+.time {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:lightgray;
-    position: absolute;
-    z-index:1;
-    top:20%;
-    left: 25%;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.time input {
     padding: 10px;
+    width: 35px;
+    border: none;
+    font-size: 30px;
+    text-align: center;
 }
 
-
-.employee_name{
-    display: flex;
-    width: 100%;
-    gap:10px;
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
-.employee_name .fieldVal{
-    width:50%
-}
-
-
-
-.fieldVal{
+.div_btn {
     display: flex;
     gap: 10px;
-    margin-top: 20px;
 }
-.div_btn button{
+
+.div_btn button {
     padding: 10px 30px;
     border: none;
     border-radius: 10px;
@@ -56,13 +53,22 @@
     font-size: 18px;
 }
 
-.start{
+.start {
     background-color: green;
 }
-.stop{
+
+.stop {
     background-color: red;
 }
-.reset{
+
+.reset {
     background-color: orange;
 }
 
+.colon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    font-size: 24px;
+}

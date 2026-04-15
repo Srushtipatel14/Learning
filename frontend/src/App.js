@@ -1,12 +1,10 @@
-import Home from './home';
+import Timer from './timer';
 import './App.css';
-import { useState } from 'react';
-import { VisibleContext } from "./VisibleContext";
 
 
 const App = () => {
   return (
-    <Countdown/>
+    <Timer/>
   )
 }
 
