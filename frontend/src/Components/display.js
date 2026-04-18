@@ -1,42 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import Multi from "./multi";
+import { useTree } from "../customHook/hook";
 
 const Display = () => {
-
-  const [status, setStatus] = useState(false);
-  const timeRef = useRef(null);
-
-
-  useEffect(() => {
-    timeRef.current = new Worker(new URL(('./worker.js'), import.meta.url));
-    timeRef.current.onmessage = (e) => {
-      alert(e.data);
-    }
-
-    return () => {
-      if(timeRef.current){
-        timeRef.current.terminate();
-      }
-    }
-  }, [])
-
-  const handleCalculation = () => {
-    if (timeRef.current) {
-      timeRef.current.postMessage("send")
-    }
-  }
-
-  const chnageDisplay = () => {
-    setStatus((prev) => !prev)
-  }
-  
+  const { objData, addNode, delNode, editNode } = useTree();
   return (
-    <div className="container" style={{ backgroundColor: status ? 'red' : "white" }}>
-      <div className="sub2">
-        <button onClick={handleCalculation}>Calculation</button>
-        <button onClick={chnageDisplay}> Display</button>
-      </div>
+    <div className="conatiner">
+      <Multi
+        data={objData}
+        addNode={addNode}
+        delNode={delNode}
+        editNode={editNode}
+      />
     </div>
-  )
-}
+  );
+};
 
 export default Display;
