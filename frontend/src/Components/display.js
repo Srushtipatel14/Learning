@@ -28,6 +28,7 @@ const Display = () => {
   const chnageDisplay = () => {
     setStatus((prev) => !prev)
   }
+  
   return (
     <div className="container" style={{ backgroundColor: status ? 'red' : "white" }}>
       <div className="sub2">
