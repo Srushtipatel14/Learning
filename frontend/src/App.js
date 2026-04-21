@@ -5,4 +5,5 @@ const App = () => {
    <Display/>
   )
 }
+
 export default App
