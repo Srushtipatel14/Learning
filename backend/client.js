@@ -1,6 +1,6 @@
-const { Kafka } = require("kafkajs");
+const { Kafka } = require("kafkajs")
 
 exports.kafka = new Kafka({
-  clientId: "my-app",
-  brokers: ["localhost:9092"], // use this
-});
+    clientId: "my-app",
+    brokers: ["localhost:9092"]
+})

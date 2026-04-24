@@ -1,45 +1,38 @@
 const { kafka } = require("./client");
+const readline = require("readline");
+
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+})
 
 async function init() {
+
     const producer = kafka.producer();
+    console.log("producer connecting...");
     await producer.connect();
+    console.log("producer connected successfully");
 
-    // 👉 simulate user input
-    const location = process.argv[2]; // pass from terminal
+    rl.setPrompt("> ");
+    rl.prompt();
 
-    let partition;
+    rl.on("line", async function (line) {
 
-    if (location === "south") {
-        partition = 0;
-    } else if (location === "north") {
-        partition = 1;
-    } else {
-        console.log("Invalid location. Use 'north' or 'south'");
-        return;
-    }
-
-    await producer.send({
-        topic: "rider-updates",
-        messages: [
-            {
-                partition,
-                key: "location-update",
-                value: JSON.stringify({ name: "srushti", location }),
-            },
-        ],
-    });
-
-    await producer.send({
-        topic: "user-updates",
-        messages: [
-            {
-                key: "user-event",
-                value: JSON.stringify({ name: "srushti", location }),
-            },
-        ],
-    });
-
-    await producer.disconnect();
+        const [ridername, location] = line.split(" ");
+        await producer.send({
+            topic: "rider-updates",
+            messages: [
+                {
+                    partition: location.toLocaleLowerCase() === "north" ? 0 : 1,
+                    key: "location-update",
+                    value: JSON.stringify({ name: ridername, location }),
+                }
+            ]
+        })
+    }).on("close", async () => {
+        await producer.disconnect();
+    })
 }
 
-init().catch(console.error);
+init();
