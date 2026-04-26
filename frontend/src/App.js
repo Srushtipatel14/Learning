@@ -1,8 +1,8 @@
 import './App.css';
-import Display from './Components/display';
+import Form from './Components/Form';
 const App = () => {
   return (
-   <Display/>
+   <Form/>
   )
 }
 
