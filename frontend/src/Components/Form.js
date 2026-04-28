@@ -12,7 +12,7 @@ const Form = () => {
         <div className='listItem'>
             <div className='litem'>
                 {val.map((item, index) => (
-                    <li key={index} >
+                    <li key={item} >
                         <input placeholder='Typing...'></input>
                         <span>{item}</span>
                     </li>
