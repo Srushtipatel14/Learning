@@ -1,43 +1,29 @@
 import React, { useCallback, useState } from 'react';
 
-const InputField = React.memo(({ label, name, value, handleChange }) => {
-    console.log("child",name)
-    return (
-        <div style={{ margin: "10px", display: "flex", gap: "20px" }} >
-            <label>{label}</label>
-            <input onChange={handleChange} name={name} value={value} />
-        </div>
-    )
-})
-
 const Form = () => {
 
-    console.log("parent")
+    const [val, setVal] = useState(["item1", "item2", "item3"]);
+    const [data, setData] = useState({});
 
-    const [formData, setFormData] = useState({});
-
-    const handleChange = useCallback((e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value
-        }))
-    }, [])
-
-    const handleSubmit=()=>{
-        console.log(formData)
+    const handleClick = () => {
+        setVal((prev) => ["item0", ...prev])
     }
-
     return (
-        <div>
-            <form>
-                <InputField label='First Name' name="fname" handleChange={handleChange} value={formData.fname || ''} />
-                <InputField label='Last Name' name="lname" handleChange={handleChange} value={formData.lname || ''} />
-                <InputField label='College Name' name="col" handleChange={handleChange} value={formData.col || ''} />
-                <InputField label='Company Name' name="com" handleChange={handleChange} value={formData.com || ''} />
-                <button type='button' onClick={handleSubmit}>Submit</button>
-            </form>
+        <div className='listItem'>
+            <div className='litem'>
+                {val.map((item, index) => (
+                    <li key={index} >
+                        <input placeholder='Typing...'></input>
+                        <span>{item}</span>
+                    </li>
+                ))}
+            </div>
+            <div>
+                <button onClick={handleClick}>Add item</button>
+            </div>
         </div>
+
+
     )
 }
 
